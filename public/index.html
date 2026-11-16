@@ -1,543 +1,188 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f6fa"><title>买房还是租房 · 简洁版 V3.4.5</title><style>
+:root{font-family:system-ui,-apple-system,"Noto Sans SC",sans-serif;color:#253248;background:#f4f7fa}*{box-sizing:border-box}body{margin:0}main{max-width:1040px;margin:0 auto;padding:20px 13px 55px}h1{font-size:25px;margin:0 0 6px}h2{font-size:17px;margin:0 0 14px}.muted{color:#718197;font-size:12px;line-height:1.6}.layout{display:grid;grid-template-columns:350px 1fr;gap:15px;align-items:start}.card{background:white;border:1px solid #e2e8f0;border-radius:15px;padding:16px;margin-bottom:15px}.fields,.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.field label{display:block;font-size:12px;font-weight:600;margin-bottom:5px}input:not([type=range]),select{width:100%;font-size:15px;padding:9px 8px;border:1px solid #c9d5e1;border-radius:8px;background:#fff;color:#24364a}.field small{color:#758399;font-size:11px;display:block;margin-top:4px}.yearbox{background:#eaf3ff}.yearline{display:flex;justify-content:space-between;align-items:center}.yearnumber{font-size:22px;font-weight:750;color:#2367a5}input[type=range]{width:100%;accent-color:#286cac;margin:16px 0}.metric{background:#f0f5fa;border-radius:10px;padding:12px}.metric span{display:block;color:#68778b;font-size:11px}.metric strong{display:block;font-size:19px;margin-top:5px;overflow-wrap:anywhere}.headline{grid-column:span 2;background:#eaf3ff}.headline strong{color:#175d9e}.notice{font-size:12px;line-height:1.7;padding:11px;border-radius:9px;background:#f0f5fb;color:#4c5d72;margin-top:12px}.warning{background:#fff1df;color:#885112}.success{background:#e9f7ef;color:#20714b}.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:520px;font-size:12px}td,th{padding:10px 8px;text-align:right;border-bottom:1px solid #e8edf3}td:first-child,th:first-child{text-align:left}th{background:#f7f9fc;color:#6d7c8d}tr.current{background:#eaf3ff;font-weight:700}tr[data-year]{cursor:pointer}canvas{width:100%;height:245px;display:block}.legend{font-size:11px;color:#6d7d90}.legend span{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}button{background:#2269a9;border:0;color:#fff;padding:10px 13px;border-radius:9px;font-weight:700;cursor:pointer}.actions{display:flex;gap:8px;flex-wrap:wrap}.secondary{background:#e9f1f9;color:#29649a}.positive{color:#078467}.negative{color:#c24c36}.full{grid-column:span 2}@media(max-width:800px){.layout{grid-template-columns:1fr}}@media(max-width:400px){.card{padding:12px}.metric strong{font-size:17px}}
 
-<!doctype html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#eef4fa">
-<title>买房 vs 租房 V3.2</title>
-<style>
-:root{
-  font-family:system-ui,-apple-system,"Noto Sans SC",sans-serif;
-  background:#f3f6fa;color:#203047
-}
-*{box-sizing:border-box}
-body{margin:0}
-main{max-width:1050px;margin:auto;padding:18px 12px 50px}
-h1{font-size:25px;margin:0 0 7px}
-h2{font-size:18px;margin:0 0 14px}
-p{line-height:1.6}
-small,.muted{color:#708095;font-size:12px}
-.layout{display:grid;grid-template-columns:360px 1fr;gap:15px;align-items:start}
-.card{background:#fff;border:1px solid #e1e7ef;border-radius:15px;padding:17px;margin-bottom:15px}
-.fields,.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
-.field label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}
-input:not([type=range]),select{
-  width:100%;background:#fff;color:#203047;
-  padding:10px 8px;border:1px solid #ccd7e5;
-  border-radius:8px;font-size:16px
-}
-.field small{display:block;margin-top:4px}
-.yearbox{background:#eaf3ff}
-.yearhead{display:flex;justify-content:space-between;align-items:center}
-.yearvalue{font-size:20px;font-weight:800;color:#1766af}
-input[type=range]{width:100%;accent-color:#236baa;margin:18px 0}
-.marks{display:flex;justify-content:space-between;font-size:11px;color:#718198}
-.metric{background:#f1f6fc;padding:13px;border-radius:10px}
-.metric span{font-size:12px;color:#68798d}
-.metric strong{display:block;font-size:20px;margin-top:6px;overflow-wrap:anywhere}
-.wide{grid-column:span 2;background:#e7f1ff}
-.wide strong{color:#165d9e}
-.scroll{overflow-x:auto}
-table{width:100%;min-width:500px;border-collapse:collapse;font-size:12px}
-th,td{padding:11px 8px;border-bottom:1px solid #e5eaf0;text-align:right;white-space:nowrap}
-th:first-child,td:first-child{text-align:left}
-th{background:#f8fafc;color:#607189}
-tr.active{background:#e7f1ff;font-weight:700}
-tr[data-year]{cursor:pointer}
-.plus{color:#078269}.minus{color:#b95238}
-button{background:#2068ad;color:#fff;border:0;border-radius:9px;padding:11px 14px;font-weight:700;cursor:pointer}
-button.alt{background:#e7f0fa;color:#2068ad}
-.actions{display:flex;gap:9px;margin-top:14px}
-.hidden{display:none}
-.note{background:#f1f6fc;border-radius:9px;padding:12px;font-size:12px;line-height:1.8;color:#53657c}
-#error{color:#bd362e;font-size:12px}
-canvas{width:100%;height:250px;display:block}
-.legend{display:flex;gap:15px;font-size:11px;color:#66788d}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
-@media(max-width:800px){.layout{grid-template-columns:1fr}}
-@media(max-width:450px){.card{padding:13px}.metric strong{font-size:18px}}
-</style>
-</head>
-<body>
-<main>
-
-<h1>🏠 买房 vs 租房 V3.2</h1>
-<p class="muted">日本住房资产配置 · 1～35年 · 累计房价变化</p>
-
-<section class="card yearbox">
-  <div class="yearhead">
-    <div>
-      <h2>① 观察年份</h2>
-      <small>所有主要结果统一使用这一年</small>
-    </div>
-    <div class="yearvalue" id="yearText">第15年</div>
-  </div>
-  <input type="range" id="focus" min="1" max="35" value="15">
-  <div class="marks"><span>1年</span><span>5年</span><span>10年</span><span>15年</span><span>20年</span><span>25年</span><span>30年</span><span>35年</span></div>
-  <div class="field" style="margin-top:12px">
-    <label>也可以直接输入年份</label>
-    <input type="number" id="focusNumber" min="1" max="35" value="15">
-  </div>
-</section>
-
-<div class="layout">
-<div>
-
-<section class="card">
-<h2>基本参数</h2>
+.subsection-title{font-size:13px;font-weight:750;color:#375a7e;margin:2px 0 10px;letter-spacing:.02em}
+.subsection-divider{border:0;border-top:1px solid #dce5ee;margin:20px 0 16px}
+.tax-settings[hidden]{display:none!important}.readonly-value{border:1px solid #d7e3ee;border-radius:8px;padding:10px;background:#f1f5f9;font-weight:750;color:#234b70;font-size:15px} .price-detail{margin-top:10px;padding-top:9px;border-top:1px solid #e2e8f0}
+.cash-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.cash-cell{background:#f0f5fa;border-radius:10px;padding:12px}.cash-cell span{display:block;color:#64748b;font-size:11px;line-height:1.5}.cash-cell strong{display:block;margin-top:6px;font-size:20px;overflow-wrap:anywhere}.cash-win{background:#eaf5ef}.cash-note{font-size:12px;color:#62748b;line-height:1.65;margin-top:10px}.cash-title{font-weight:700;margin-bottom:9px;font-size:13px}@media(max-width:430px){.cash-row{gap:6px}.cash-cell{padding:9px 7px}.cash-cell strong{font-size:16px}}
+</style></head><body><main><h1>🏠 买房 vs 租房</h1><p class="muted">简洁版 V3.4.5 · 假设第 X 年出售结清 · 优质地段公寓情景</p>
+<section class="card yearbox"><div class="yearline"><div><h2>观察年份＝出售年份</h2><div class="muted">所有结果同步切换</div></div><strong class="yearnumber" id="yearText">第10年</strong></div><input id="year" type="range" min="1" max="35" value="10"><div style="display:flex;justify-content:space-between" class="muted"><span>1年</span><span>5年</span><span>15年</span><span>25年</span><span>35年</span></div></section>
+<div class="layout"><div>
+<section class="card"><h2>① 房子与房贷</h2><div class="fields">
+<div class="field"><label>房屋总价（万日元）</label><input type="number" id="price" value="5500"></div>
+<div class="field"><label>买入时房龄（年）</label><input type="number" id="age" value="25"></div>
+<div class="field"><label>首付金额（万）</label><input type="number" id="down" value="0"></div>
+<div class="field"><label>房贷年利率（%）</label><input type="number" id="rate" value="1.1" step="0.1"></div>
+<div class="field"><label>贷款年限</label><input type="number" id="term" value="35"></div>
+<div class="field"><label>购房一次性费用（万）</label><input type="number" id="closing" value="300"></div>
+<div class="field full"><label>优质地段房价情景</label><select id="scenario"><option value="base">基准：老化折价＋当地市场长期持平</option><option value="low">保守：老化折价较高＋市场走弱</option><option value="high">乐观：老化折价较低＋市场走强</option></select><small>这是敏感性测试曲线，不是已校准的官方好地段预测。</small></div>
+<div class="field"><label>观察年份累计市场变化（%）</label><input type="number" id="market" value="0" step="5"><small>截至观察年份的总变化；其他年份按线性路径插值或外推，不逐年复利</small></div>
+<div class="field"><label>出售相关费用（%）</label><input type="number" id="saleFee" value="3" step="0.1"></div>
+</div><div class="notice">房价只考虑 <b>买入时的房龄＋未来老化影响＋截至观察年份的累计市场变化</b>。不需要填车站、地区或上传交易数据。具体老化参数为示范假设。</div></section>
+<section class="card"><h2>② 每月居住费用</h2>
+<div class="subsection-title">🏠 买房持有费用</div>
 <div class="fields">
-  <div class="field"><label>房价（万日元）</label><input id="price" type="number" value="5500"></div>
-  <div class="field"><label>首付金额（万日元）</label><input id="down" type="number" value="0"></div>
-  <div class="field"><label>贷款利率（%）</label><input id="rate" type="number" value="1.1" step="0.1"></div>
-  <div class="field"><label>贷款年限</label><input id="term" type="number" value="35"></div>
-  <div class="field"><label>租房月租金（万）</label><input id="rent" type="number" value="18"></div>
-  <div class="field"><label>买房持有费（万/月）</label><input id="cost" type="number" value="6.7"><small>管理、修缮、停车、税费等</small></div>
-  <div class="field"><label>初始购房费用（万）</label><input id="closing" type="number" value="300"></div>
-  <div class="field"><label>卖房费用（%）</label><input id="saleFee" type="number" value="3"></div>
-  <div class="field">
-    <label>35年累计房价变化（%）</label>
-    <input id="growth" type="number" value="-20">
-    <small>例如-20%表示35年总共下跌20%，不逐年复利</small>
-  </div>
-  <div class="field"><label>投资年化收益（%）</label><input id="invest" type="number" value="5"></div>
-  <div class="field"><label>房租年涨幅（%）</label><input id="rentGrow" type="number" value="0"></div>
-  <div class="field"><label>持有费年涨幅（%）</label><input id="costGrow" type="number" value="0"></div>
-  <div class="field"><label>房贷减税（万/年）</label><input id="benefit" type="number" value="0"><small>简化按最多前13年计算</small></div>
+<div class="field"><label>管理费（万/月）</label><input type="number" id="management" value="1.5" step="0.1"></div>
+<div class="field"><label>修缮积立金（万/月）</label><input type="number" id="reserve" value="2" step="0.1"></div>
+<div class="field"><label>修缮金每10年上调（%）</label><input type="number" id="reserveRise" value="30" step="5"></div>
+<div class="field"><label>停车费（万/月）</label><input type="number" id="parking" value="2.5" step="0.1"></div>
+<div class="field"><label>固定资产税等（万/年）</label><input type="number" id="tax" value="8.4" step="1"></div>
+<div class="field"><label>保险＋室内维修（万/年）</label><input type="number" id="repair" value="12" step="1"></div>
 </div>
-</section>
+<hr class="subsection-divider">
+<div class="subsection-title">🔑 租房居住费用</div>
+<div class="fields">
+<div class="field"><label>租金含车位（万/月）</label><input type="number" id="rent" value="18" step="0.5"></div>
+<div class="field"><label>租金每年上涨（%）</label><input type="number" id="rentRise" value="0" step="0.5"></div>
+<div class="field"><label>租房更新料（月租倍数）</label><input type="number" id="renew" value="1" step="0.5"></div>
+<div class="field"><label>更新周期（年）</label><input type="number" id="renewEvery" value="2"></div>
+<div class="field"><label>租房初期非退还费用（万）</label><input type="number" id="rentInitial" value="18"></div>
+<div class="field"><label>租房保险（万/年）</label><input type="number" id="rentInsurance" value="1"></div>
+</div></section>
+<section class="card"><h2>③ 资产与投资</h2><div class="fields">
+<div class="field"><label>双方初始可用资产（万）</label><div id="capitalDisplay" class="readonly-value">300万</div><small>自动等于首付金额＋购房一次性费用，不必重复填写</small></div>
 
-<section class="card">
-<h2>② 搬走后的选择</h2>
-<div class="field">
-<label>选择一种住房策略</label>
-<select id="strategy">
-<option value="stay">一直自住，不搬家</option>
-<option value="sell">搬走时卖房，之后租房</option>
-<option value="rentout">搬走后出租原房，自己租房</option>
-</select>
-</div>
-
-<div id="moveSettings" class="hidden">
-<div class="fields" style="margin-top:15px">
-  <div class="field"><label>第几年搬走</label><input id="move" type="number" value="10" min="1" max="35"></div>
-  <div class="field"><label>搬家后新租金（万/月）</label><input id="newRent" type="number" value="18"></div>
-  <div class="field rental"><label>原房出租租金（万/月）</label><input id="propertyRent" type="number" value="19"></div>
-  <div class="field rental"><label>空置率（%）</label><input id="vacancy" type="number" value="8"></div>
-  <div class="field rental"><label>出租管理费（%）</label><input id="manage" type="number" value="5"></div>
-  <div class="field rental"><label>额外维修预留（%）</label><input id="maintenance" type="number" value="8"></div>
-  <div class="field rental"><label>出租税费预留（%）</label><input id="rentalTax" type="number" value="10"></div>
-  <div class="field rental"><label>出租租金年涨幅（%）</label><input id="propertyRentGrow" type="number" value="0"></div>
-</div>
-</div>
-
-<p class="muted">搬走年份独立于观察年份。转出租需要事先确认银行贷款合同是否允许。</p>
-<div id="error"></div>
-<div class="actions">
-<button class="alt" id="reset">恢复默认</button>
-<button id="export">导出CSV</button>
-</div>
-</section>
-</div>
-
-<div>
-
-<section class="card">
-<h2 id="resultTitle">第15年 · 核心结果</h2>
-<div class="metrics">
-  <div class="metric"><span>初始每月房贷</span><strong id="mortgage">—</strong></div>
-  <div class="metric"><span>初始买房月支出</span><strong id="outflow">—</strong></div>
-  <div class="metric"><span>一直租房期末净资产</span><strong id="renter">—</strong></div>
-  <div class="metric"><span>所选买房方案期末净资产</span><strong id="owner">—</strong></div>
-  <div class="metric wide"><span>买房 vs 租房</span><strong id="difference">—</strong></div>
-</div>
-<p class="muted" id="detail"></p>
-</section>
-
-<section class="card">
-<h2 id="scenarioTitle">第15年 · 策略比较</h2>
-<div class="scroll">
-<table>
-<thead><tr><th>方案</th><th>净资产（万）</th><th>相对租房（万）</th></tr></thead>
-<tbody id="paths"></tbody>
-</table>
-</div>
-<p class="note" id="pathNote"></p>
-</section>
-
-<section class="card">
-<h2>每5年盈亏平衡售价</h2>
-<p class="muted">以下仅针对一直自住后出售的方案。点击年份即可切换观察年份。</p>
-<div class="scroll">
-<table>
-<thead><tr><th>年份</th><th>所需卖价（万）</th><th>相对买入价</th><th>买房领先（万）</th></tr></thead>
-<tbody id="breakTable"></tbody>
-</table>
-</div>
-</section>
-
-<section class="card">
-<h2>1～35年净资产变化</h2>
-<canvas id="chart"></canvas>
-<div class="legend">
-<span><i class="dot" style="background:#246bb1"></i>买房方案</span>
-<span><i class="dot" style="background:#16a17c"></i>租房投资</span>
-</div>
-</section>
-
-</div>
-</div>
-
-<section class="card">
-<h2>模型说明</h2>
-<p class="muted">
-买房净资产包括房屋估计售价、剩余贷款、出售费用及金融资产。
-租房方案投资买房本来需要支付的首付、购房费用和住房现金流差额。
-房价按35年累计变化率线性插值，不逐年复利；投资收益仍按复利模拟。
-未完整计入实际投资税、房地产转让所得税、租赁更新费、装修和特殊修缮费用。
-贷款利率假设长期不变，现实中的浮动贷款存在升息风险。
-如果金融资产为负，表示模型需要额外融资，不能理解为现实中可无限借款。
-</p>
-</section>
-
-</main>
-
+<div class="field"><label>投资年化收益（%）</label><input type="number" id="invest" value="5" step="0.5"></div>
+<div class="field"><label>贷款减税模式</label><select id="creditMode"><option value="none">先按0计算</option><option value="estimate">简化自动预估</option><option value="manual">自己填写预估值</option></select></div>
+<div class="field tax-settings" id="manualCreditWrap" hidden><label>手动预估每年减税（万）</label><input type="number" id="manualCredit" value="14"></div><div class="field tax-settings" id="manualYearsWrap" hidden><label>预计可减税年数（年）</label><input type="number" id="manualYears" value="10" min="0" max="35"></div>
+<div class="field tax-settings" hidden><label>年末贷款适用上限（万）</label><input type="number" id="creditCap" value="2000"></div>
+<div class="field tax-settings" hidden><label>预计减税适用年数</label><input type="number" id="creditYears" value="10"></div>
+<div class="field tax-settings" hidden><label>每年实际可减税上限（万）</label><input type="number" id="taxCapacity" value="14"></div>
+<div class="field full"><small id="creditModeHelp" class="muted">目前不计算住宅贷款减税。</small></div>
+</div><div class="notice">双方初始资金自动按<b>首付＋购房一次性费用</b>设置。买房者初始资金用于支付这两项；租房者把同额资金扣除租房初期费用后投资。不需要设置每月预算：每月比较买房与租房的实际住房现金支出，<b>哪一方支出更低，就把差额投入该方案的投资账户</b>。两边共同且相等的额外储蓄不计入比较。由于没有收入或月预算数据，本模型不判断住房费用是否负担得起。减税仅为估算，需另核实适用条件。</div></section>
+<div class="actions"><button id="reset" class="secondary">恢复默认</button><button id="export">导出 CSV</button></div>
+</div><div>
+<section class="card"><h2>每月住房现金支出对比</h2>
+<div class="cash-title">刚买入的第1个月</div>
+<div class="cash-row"><div class="cash-cell"><span>买房月支出</span><strong id="firstBuy">—</strong></div><div class="cash-cell"><span>租房月支出</span><strong id="firstRent">—</strong></div><div class="cash-cell cash-win"><span>月支出差额</span><strong id="firstGap">—</strong></div></div>
+<div class="cash-note" id="firstWho"></div>
+<div style="border-top:1px solid #e2e8f0;padding-top:13px;margin-top:13px"><div class="cash-title">观察第<span id="cashYear">10</span>年 · 全年月均</div>
+<div class="cash-row"><div class="cash-cell"><span>买房月均净支出</span><strong id="yearBuy">—</strong></div><div class="cash-cell"><span>租房月均支出</span><strong id="yearRent">—</strong></div><div class="cash-cell cash-win"><span>月均支出差额</span><strong id="yearGap">—</strong></div></div>
+<div class="cash-note" id="yearWho"></div></div>
+<p class="muted" style="margin:10px 0 0">单位：万日元。买房支出含房贷本息、管理修缮、停车、税费和维修，扣除当期预计房贷减税；租房支出含租金、保险和更新料。月均＝该年12个月实际现金流之和÷12；实际投资按每个月的差额逐月计算，并非按月均差额一次性计算。首月不包含已在初始资金中单独计算的购房和租房签约费用。</p></section>
+<section class="card"><h2>第<span id="resultYear">10</span>年出售结清 · 财务结果</h2><div class="metrics">
+<div class="metric"><span>首月房贷</span><strong id="payment">—</strong></div><div class="metric"><span>出售时房龄</span><strong id="saleAge">—</strong></div>
+<div class="metric"><span>预计售价（情景）</span><strong id="salePrice">—</strong></div><div class="metric"><span>剩余房贷</span><strong id="balance">—</strong></div>
+<div class="metric"><span>买房可变现净资产</span><strong id="buyNet">—</strong></div><div class="metric"><span>租房金融净资产</span><strong id="rentNet">—</strong></div>
+<div class="metric headline"><span>同一时点净资产对比</span><strong id="difference">—</strong></div>
+</div><div id="liquidity" class="notice"></div><div class="notice" id="priceExplanation"></div></section>
+<section class="card"><h2>每5年对比</h2><p class="muted">点击年份切换观察年份。保本售价表示买房要卖到多少，净资产才与租房相当。</p><div class="scroll"><table><thead><tr><th>观察年</th><th>房龄</th><th>房龄参考价</th><th>预计售价</th><th>买房净资产</th><th>租房净资产</th><th>保本售价</th></tr></thead><tbody id="fiveTable"></tbody></table></div>
+<div style="margin-top:18px;padding-top:14px;border-top:1px solid #e2e8f0">
+<h2 style="margin-bottom:6px">房龄折价参考曲线</h2>
+<p class="muted">横轴为持有年数（下方同时标注届时房龄）。蓝线只计算房龄造成的假设折价：前期下降相对快，房龄增加后下降逐渐放缓；橙线还叠加你输入的市场累计变化。两条曲线都不是官方历史成交数据或保证售价。</p>
+<canvas id="ageChart" style="height:265px" aria-label="房龄折价与情景售价曲线"></canvas>
+<div class="legend" style="margin-top:6px"><span style="background:#2873b9"></span>仅房龄折价参考价（蓝色虚线）　<span style="background:#d68b43"></span>市场调整后预计售价（橙色实线）</div>
+<div id="ageChartNote" class="notice"></div>
+</div></section>
+<section class="card"><h2>净资产随时间变化</h2><canvas id="chart"></canvas><div class="legend"><span style="background:#2873b9"></span>买房出售后　<span style="background:#159a7d"></span>一直租房</div></section>
+<section class="card"><h2>公式说明</h2><p class="muted">房价 = 买入价格 ×〔土地权重 + 建筑权重 × 建筑老化相对系数〕×（1 + 观察年份累计市场变化率 × 年数/观察年份）。观察年份之后按相同线性斜率外推，并限制售价不能为负。土地权重和建筑老化速度是不同情景下的<strong>假设参数</strong>，不是官方认证数据。买房净资产 = 预计售价 − 出售费用 − 剩余贷款 + 金融资产；租房净资产 = 金融资产。初始资金等于首付＋购房初期费用；买房者支付首付及费用，租房者扣除自身初期费用后投资。卖房所得税、贷款利率变化和重大特殊维修费尚未建模。本模型不需要输入共同月预算，按每月住房现金流差额投资；不判断家庭支付能力。</p></section>
+</div></div></main>
 <script>
-(()=>{
-"use strict";
-
-const $=id=>document.getElementById(id);
-const ids=[
-"price","down","rate","term","rent","cost","closing",
-"saleFee","growth","invest","rentGrow","costGrow","benefit",
-"move","newRent","propertyRent","vacancy","manage",
-"maintenance","rentalTax","propertyRentGrow"
-];
-
-const defaults=Object.fromEntries(
-  [...ids,"strategy"].map(id=>[id,$(id).value])
-);
-
-let focusYear=15;
-let results=[];
-
-const fmt=n=>Number.isFinite(n)?
-  n.toLocaleString("zh-CN",{maximumFractionDigits:1}):"—";
-const money=n=>fmt(n)+"万";
-
-function visibility(){
-  const s=$("strategy").value;
-  $("moveSettings").classList.toggle("hidden",s==="stay");
-  document.querySelectorAll(".rental").forEach(el=>{
-    el.classList.toggle("hidden",s!=="rentout");
-  });
-}
-
-function calculate(){
-  const a=Object.fromEntries(ids.map(id=>[id,Number($(id).value)]));
-  const strategy=$("strategy").value;
-
-  const bad=ids.some(id=>$(id).value===""||!Number.isFinite(a[id]))
-    ||a.price<=0||a.down<0||a.down>a.price
-    ||a.rate<0||a.term<1||a.term>50
-    ||a.saleFee<0||a.saleFee>=100
-    ||a.growth<=-100||a.invest<=-100
-    ||a.rentGrow<=-100||a.costGrow<=-100
-    ||a.propertyRentGrow<=-100
-    ||a.move<1||a.move>35||!Number.isInteger(a.move)
-    ||[a.rent,a.cost,a.closing,a.benefit,a.newRent,
-        a.propertyRent].some(v=>v<0)
-    ||[a.vacancy,a.manage,a.maintenance,a.rentalTax]
-        .some(v=>v<0||v>100);
-
-  if(bad){
-    $("error").textContent="参数有误：请检查金额、首付及百分比。";
-    return;
-  }
-
-  $("error").textContent="";
-  visibility();
-
-  const loan=a.price-a.down;
-  const totalMonths=a.term*12;
-  const r=a.rate/1200;
-  const ir=Math.pow(1+a.invest/100,1/12)-1;
-  const saleFactor=1-a.saleFee/100;
-  const moveMonth=a.move*12;
-
-  const payment=loan===0?0:r===0?
-    loan/totalMonths:
-    loan*r/(1-Math.pow(1+r,-totalMonths));
-
-  function balance(month){
-    if(month>=totalMonths)return 0;
-    if(r===0)return Math.max(0,loan-payment*month);
-    return Math.max(0,
-      loan*Math.pow(1+r,month)
-      -payment*(Math.pow(1+r,month)-1)/r
-    );
-  }
-
-  // 房价采用35年累计变化，不使用复利
-  function housePrice(year){
-    return a.price*(1+a.growth/100*year/35);
-  }
-
-  let renter=a.down+a.closing;
-  let ownerInvest=0;
-  let sellerInvest=0;
-  let landlordInvest=0;
-
-  const rows=[];
-
-  for(let month=1;month<=420;month++){
-    const yi=Math.floor((month-1)/12);
-
-    const ownCost=(month<=totalMonths?payment:0)
-      +a.cost*Math.pow(1+a.costGrow/100,yi);
-    const rentCost=a.rent*Math.pow(1+a.rentGrow/100,yi);
-
-    renter=renter*(1+ir)+ownCost-rentCost;
-
-    const tax=month<=156?a.benefit/12:0;
-
-    ownerInvest=ownerInvest*(1+ir)+tax;
-    sellerInvest=sellerInvest*(1+ir)+(month<=moveMonth?tax:0);
-    landlordInvest=landlordInvest*(1+ir)+(month<=moveMonth?tax:0);
-
-    if(month===moveMonth){
-      const sale=housePrice(a.move)*saleFactor-balance(month);
-      sellerInvest+=sale;
-    }
-
-    if(month>moveMonth){
-      const elapsed=Math.floor((month-moveMonth-1)/12);
-      const newRent=a.newRent*
-        Math.pow(1+a.rentGrow/100,elapsed);
-
-      // 卖房后不再支付旧房贷款和持有费用
-      sellerInvest+=ownCost-newRent;
-
-      // 出租方案仍支付旧房贷款及持有费用
-      const gross=a.propertyRent*
-        Math.pow(1+a.propertyRentGrow/100,elapsed);
-      const netRent=gross*(1-a.vacancy/100)*
-        Math.max(0,1-(a.manage+a.maintenance+a.rentalTax)/100);
-
-      landlordInvest+=netRent-newRent;
-    }
-
-    if(month%12===0){
-      const year=month/12;
-      const house=housePrice(year);
-      const remaining=balance(month);
-      const equity=house*saleFactor-remaining;
-
-      rows.push({
-        year,house,remaining,
-        renter,
-        stay:equity+ownerInvest,
-        sell:year<a.move?equity+sellerInvest:sellerInvest,
-        rentout:equity+landlordInvest,
-        ownerInvest
-      });
+(()=>{'use strict';
+const $=s=>document.getElementById(s),ids=['price','age','down','rate','term','closing','market','saleFee','management','reserve','reserveRise','parking','tax','repair','rent','rentRise','renew','renewEvery','rentInitial','rentInsurance','invest','creditCap','creditYears','taxCapacity','manualCredit','manualYears'];
+const initial=Object.fromEntries(ids.map(k=>[k,$(k).value]));let focus=10,rows=[];
+const n=id=>Number($(id).value),fm=v=>Number.isFinite(v)?v.toLocaleString('zh-CN',{maximumFractionDigits:1}):'—',money=v=>fm(v)+'万';
+const presets={base:{land:.45,k:.045,market:0},low:{land:.35,k:.055,market:-10},high:{land:.55,k:.03,market:10}};
+function calc(){const bad=ids.some(k=>$(k).value===''||!Number.isFinite(n(k)))||n('price')<=0||n('age')<0||n('age')>120||n('down')<0||n('down')>n('price')||n('rate')<0||n('term')<1||n('term')>50||n('market')<=-100||n('saleFee')<0||n('saleFee')>=100||n('invest')<=-100||n('rentRise')<=-100||n('reserveRise')<=-100||!Number.isInteger(n('manualYears'))||n('manualYears')<0||n('manualYears')>35||!Number.isInteger(n('renewEvery'))||n('renewEvery')<1||!Number.isInteger(n('creditYears'))||n('creditYears')<0||ids.filter(k=>['closing','management','reserve','parking','tax','repair','rent','renew','rentInitial','rentInsurance','creditCap','taxCapacity','manualCredit'].includes(k)).some(k=>n(k)<0);
+if(bad){$('liquidity').textContent='请输入有效的正数金额、期限和比例。';return;}
+const price=n('price'),rate=n('rate')/1200,loan=price-n('down'),term=Math.round(n('term')*12),monthly=loan===0?0:rate===0?loan/term:loan*rate/(1-Math.pow(1+rate,-term)),monthlyReturn=Math.pow(1+n('invest')/100,1/12)-1;
+function debt(m){if(m>=term)return 0;if(!rate)return Math.max(0,loan-monthly*m);return Math.max(0,loan*Math.pow(1+rate,m)-monthly*(Math.pow(1+rate,m)-1)/rate);}
+const cfg=presets[$('scenario').value],land=cfg.land,k=cfg.k;
+function ageCurve(a){return .1+.9*Math.exp(-k*a)};
+function priceParts(t){const building=ageCurve(n('age')+t)/ageCurve(n('age'));const ageOnly=price*(land+(1-land)*building);const marketFactor=1+n('market')/100*t/focus;const sale=Math.max(0,ageOnly*marketFactor);return {ageOnly,ageEffect:ageOnly-price,marketEffect:sale-ageOnly,sale,marketFactor};}
+function house(t){return priceParts(t).sale;}
+const capital=n('down')+n('closing');$('capitalDisplay').textContent=money(capital);
+// 双方拥有同一笔初始资金。买房用它支付首付及购房费用；租房用它支付租房初期费用。
+// 为避免使用负投资账户计算复利，允许买卖双方投资账户仅记录“相对另一方多余的资金”。
+// 两边在现实中共同持有的相同投资余额会在净资产差额中抵消。
+const initialDifference=capital-n('rentInitial');
+let buy=Math.max(0,-initialDifference),rent=Math.max(0,initialDifference);
+const initialRentalGap=Math.max(0,-initialDifference);
+const out=[];let ownAnnual=0,rentAnnual=0,firstOwn=0,firstRental=0;
+for(let m=1;m<=420;m++){
+  const yr=Math.floor((m-1)/12);
+  const own=(m<=term?monthly:0)+n('management')+
+    n('reserve')*Math.pow(1+n('reserveRise')/100,Math.floor(yr/10))+
+    n('parking')+(n('tax')+n('repair'))/12;
+  const rentBase=n('rent')*Math.pow(1+n('rentRise')/100,yr);
+  const rentCash=rentBase+n('rentInsurance')/12+
+    ((m>12&&((m-1)%(n('renewEvery')*12)===0))?rentBase*n('renew'):0);
+  let credit=0;
+  if(m%12===0){
+    const taxYear=m/12;
+    if($('creditMode').value==='estimate'&&taxYear<=n('creditYears')){
+      credit=Math.min(n('taxCapacity'),Math.min(n('creditCap'),debt(m))*.007);
+    }else if($('creditMode').value==='manual'&&taxYear<=n('manualYears')){
+      credit=n('manualCredit');
     }
   }
-
-  const d=rows[focusYear-1];
-  const chosen=d[strategy];
-  const diff=chosen-d.renter;
-
-  const names={
-    stay:"一直自住",
-    sell:`第${a.move}年卖房后租房`,
-    rentout:`第${a.move}年出租原房`
-  };
-  const name=names[strategy];
-
-  $("yearText").textContent=`第${focusYear}年`;
-  $("resultTitle").textContent=`第${focusYear}年 · 核心结果`;
-  $("scenarioTitle").textContent=`第${focusYear}年 · ${name} vs 租房`;
-
-  $("mortgage").textContent=money(payment);
-  $("outflow").textContent=money(payment+a.cost);
-  $("renter").textContent=money(d.renter);
-  $("owner").textContent=money(chosen);
-  $("difference").textContent=
-    (diff>=0?"买房领先 ":"租房领先 ")+money(Math.abs(diff));
-
-  $("detail").textContent=
-    `首期贷款利息约${fmt(loan*r)}万，`+
-    `还款本金约${fmt(payment-loan*r)}万。`+
-    `第${focusYear}年剩余贷款${fmt(d.remaining)}万，`+
-    `模拟房价${fmt(d.house)}万。`;
-
-  $("paths").innerHTML=[
-    [name,chosen],
-    ["一直租房＋投资",d.renter]
-  ].map(([label,value])=>{
-    const delta=value-d.renter;
-    return `<tr>
-      <td>${label}</td>
-      <td>${fmt(value)}</td>
-      <td class="${delta>=0?"plus":"minus"}">
-        ${delta>=0?"+":""}${fmt(delta)}
-      </td>
-    </tr>`;
-  }).join("");
-
-  $("pathNote").textContent=strategy==="stay"?
-    "继续自住，观察年末按出售房屋后的净值计算。":
-    focusYear<=a.move?
-      `观察第${focusYear}年，尚未进入第${a.move}年搬家后的阶段。`:
-      strategy==="sell"?
-        "搬走时出售房屋，扣除剩余房贷和出售费用，剩余资金继续投资并承担新住房租金。":
-        "保留原房出租，继续支付旧房贷款和持有费用，同时承担新住房租金。";
-
-  $("breakTable").innerHTML=[5,10,15,20,25,30,35].map(y=>{
-    const z=rows[y-1];
-    const threshold=(z.renter-z.ownerInvest+z.remaining)/saleFactor;
-    const pct=(threshold/a.price-1)*100;
-    const advantage=z.stay-z.renter;
-    return `<tr data-year="${y}" class="${y===focusYear?"active":""}">
-      <td>${y}年</td>
-      <td>${fmt(threshold)}</td>
-      <td>${pct>=0?"+":""}${fmt(pct)}%</td>
-      <td class="${advantage>=0?"plus":"minus"}">
-        ${advantage>=0?"+":""}${fmt(advantage)}
-      </td>
-    </tr>`;
-  }).join("");
-
-  document.querySelectorAll("tr[data-year]").forEach(tr=>{
-    tr.onclick=()=>setFocus(Number(tr.dataset.year));
-  });
-
-  results=rows;
-  draw(rows,strategy);
-}
-
-function draw(rows,key){
-  const c=$("chart");
-  const w=c.clientWidth||500,h=250;
-  const dpr=window.devicePixelRatio||1;
-  c.width=Math.round(w*dpr);
-  c.height=Math.round(h*dpr);
-
-  const ctx=c.getContext("2d");
-  ctx.scale(dpr,dpr);
-  ctx.clearRect(0,0,w,h);
-
-  const values=rows.flatMap(x=>[x[key],x.renter]);
-  const min0=Math.min(0,...values);
-  const max0=Math.max(1,...values);
-  const padding=(max0-min0)*0.1;
-  const lo=min0-padding,hi=max0+padding;
-  const left=48,right=10,top=20,bottom=32;
-
-  const X=y=>left+(w-left-right)*y/35;
-  const Y=v=>top+(h-top-bottom)*(hi-v)/(hi-lo);
-
-  ctx.font="10px system-ui";
-  ctx.strokeStyle="#e4eaf0";
-  ctx.fillStyle="#718198";
-  ctx.lineWidth=1;
-
-  for(let i=0;i<5;i++){
-    const v=lo+(hi-lo)*i/4;
-    const y=Y(v);
-    ctx.beginPath();
-    ctx.moveTo(left,y);
-    ctx.lineTo(w-right,y);
-    ctx.stroke();
-    ctx.fillText(fmt(v),3,y+4);
+  // 统一用月末投入，先对已有投资计算回报；把住房净支出较低一方的差额用于投资。
+  buy*=1+monthlyReturn;
+  rent*=1+monthlyReturn;
+  if(m===1){firstOwn=own-credit;firstRental=rentCash;}
+  ownAnnual+=own-credit;rentAnnual+=rentCash;
+  const difference=own-credit-rentCash;
+  if(difference>0)rent+=difference;
+  else buy+=-difference;
+  if(m%12===0){
+    const year=m/12,parts=priceParts(year),sale=parts.sale,bal=debt(m);
+    const netBuy=sale*(1-n('saleFee')/100)-bal+buy;
+    const netRent=rent;
+    out.push({year,sale,ageOnly:parts.ageOnly,bal,buy:netBuy,rent:netRent,
+      breakEven:(netRent-buy+bal)/(1-n('saleFee')/100),
+      buyInvest:buy,rentInvest:rent,initialRentalGap,ownMonthlyAverage:ownAnnual/12,rentMonthlyAverage:rentAnnual/12});
+    ownAnnual=0;rentAnnual=0;
   }
-
-  for(let y=0;y<=35;y+=5){
-    const x=X(y);
-    ctx.beginPath();
-    ctx.moveTo(x,top);
-    ctx.lineTo(x,h-bottom);
-    ctx.stroke();
-    ctx.fillText(y+"年",Math.max(0,x-12),h-10);
+}
+function putCash(prefix,b,r,who){const d=b-r;$(prefix+'Buy').textContent=money(b);$(prefix+'Rent').textContent=money(r);$(prefix+'Gap').textContent=money(Math.abs(d));$(who).textContent=Math.abs(d)<0.0000001?'双方该期住房现金支出相同，不产生投资差额。':d>0?'租房支出更低：差额由租房方案投入投资。':'买房支出更低：差额由买房方案投入投资。';}
+rows=out;const z=out[focus-1];putCash('first',firstOwn,firstRental,'firstWho');putCash('year',z.ownMonthlyAverage,z.rentMonthlyAverage,'yearWho');$('cashYear').textContent=focus;$('yearText').textContent='第'+focus+'年';$('resultYear').textContent=focus;$('saleAge').textContent=(n('age')+focus)+'年';$('payment').textContent=money(monthly);$('salePrice').textContent=money(z.sale);$('balance').textContent=money(z.bal);$('buyNet').textContent=money(z.buy);$('rentNet').textContent=money(z.rent);$('difference').textContent=(z.buy>=z.rent?'买房领先 ':'租房领先 ')+money(Math.abs(z.buy-z.rent));$('difference').className=z.buy>=z.rent?'positive':'negative';
+$('liquidity').className='notice';
+$('liquidity').textContent='无须设置共同月预算：每个月住房现金支出更低的一方投资当月差额（贷款减税按预计到账月份抵扣）。'+
+  '此处的金融资产是双方投资金额的相对差额，不是家庭全部存款。'+
+  (z.initialRentalGap>0?'注意：租房初期费用超出了设定的初始资金，差额约'+money(z.initialRentalGap)+'，本模型仅将其计为租房方案的额外初始资本需求。':'')+
+  '由于没有收入与现金储备资料，本工具不判断任何方案的实际支付能力。';
+const pp=priceParts(focus);$('priceExplanation').innerHTML='房价拆分：购入 '+money(price)+'；房龄变化 '+(pp.ageEffect>=0?'+':'')+money(pp.ageEffect)+'；市场变化 '+(pp.marketEffect>=0?'+':'')+money(pp.marketEffect)+'；合计 '+money(pp.sale)+'。<div class="price-detail">你填写的是<b>第'+focus+'年累计市场变化 '+n('market')+'%</b>。每5年表按相同直线变化率计算；超过观察年份的部分是外推，不是独立预测。好地段房价和折旧参数仅供情景测试。</div>';
+$('fiveTable').innerHTML=[5,10,15,20,25,30,35].map(y=>{const a=out[y-1];return `<tr data-year="${y}" class="${focus===y?'current':''}"><td>${y}年</td><td>${n('age')+y}年</td><td>${fm(a.ageOnly)}</td><td>${fm(a.sale)}</td><td>${fm(a.buy)}</td><td>${fm(a.rent)}</td><td>${fm(a.breakEven)}</td></tr>`}).join('');document.querySelectorAll('tr[data-year]').forEach(el=>el.onclick=()=>{$('year').value=el.dataset.year;focus=Number(el.dataset.year);calc()});draw(out);drawAge(out);
+}
+function drawAge(data){
+  const c=$('ageChart'),W=c.clientWidth||500,H=265,dpr=window.devicePixelRatio||1;
+  c.width=Math.round(W*dpr);c.height=Math.round(H*dpr);
+  const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
+  const all=[n('price'),...data.flatMap(z=>[z.ageOnly,z.sale])];
+  const lo=Math.min(...all),hi=Math.max(...all),margin=Math.max(100,(hi-lo)*.13);
+  const lower=Math.max(0,lo-margin),upper=hi+margin;
+  const L=54,R=12,T=20,B=47;
+  const X=y=>L+(W-L-R)*y/35,Y=v=>T+(H-T-B)*(upper-v)/(upper-lower);
+  ctx.font='11px system-ui';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const value=lower+(upper-lower)*i/4,y=Y(value);
+    ctx.strokeStyle='#e4eaf0';ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(W-R,y);ctx.stroke();
+    ctx.fillStyle='#6f8092';ctx.fillText(fm(value),4,y+4);
   }
-
-  [[key,"#246bb1"],["renter","#16a17c"]].forEach(([field,color])=>{
-    ctx.beginPath();
-    ctx.strokeStyle=color;
-    ctx.lineWidth=2;
-    rows.forEach((row,i)=>{
-      if(i===0)ctx.moveTo(X(row.year),Y(row[field]));
-      else ctx.lineTo(X(row.year),Y(row[field]));
-    });
-    ctx.stroke();
-  });
-
-  const x=X(focusYear);
-  ctx.setLineDash([4,4]);
-  ctx.strokeStyle="#344960";
-  ctx.beginPath();
-  ctx.moveTo(x,top);
-  ctx.lineTo(x,h-bottom);
-  ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle="#344960";
-  ctx.fillText(`第${focusYear}年`,Math.min(w-60,x),13);
+  for(const y of [0,5,10,15,20,25,30,35]){
+    const x=X(y);ctx.fillStyle='#6f8092';ctx.textAlign='center';
+    ctx.fillText(y+'年',x,H-27);ctx.fillText('龄'+(n('age')+y),x,H-10);
+  }
+  ctx.textAlign='start';
+  // 先画橙色实际情景曲线；再在上方画蓝色虚线。
+  // 市场变化为0%时两条曲线完全重合，虚线让两者都能辨认。
+  for(const [key,color,dash] of [
+    ['sale','#d68b43',[]],
+    ['ageOnly','#2873b9',[7,6]]
+  ]){
+    ctx.strokeStyle=color;ctx.lineWidth=3.2;ctx.setLineDash(dash);ctx.beginPath();
+    ctx.moveTo(X(0),Y(n('price')));
+    for(const row of data)ctx.lineTo(X(row.year),Y(row[key]));
+    ctx.stroke();ctx.setLineDash([]);
+  }
+  ctx.strokeStyle='#526277';ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.beginPath();
+  ctx.moveTo(X(focus),T);ctx.lineTo(X(focus),H-B);ctx.stroke();ctx.setLineDash([]);
+  const z=data[focus-1];
+  $('ageChartNote').textContent='第'+focus+'年／房龄'+(n('age')+focus)+'年：仅房龄折价参考 '+money(z.ageOnly)+'；市场调整后预计售价 '+money(z.sale)+'。'+(Math.abs(n('market'))<1e-9?'当前市场变化为0%，两条价格曲线完全重合，蓝色虚线叠在橙线之上。':'两条曲线的差距来自市场情景变化。')+' 房龄曲线参数来自当前“'+$('scenario').selectedOptions[0].text+'”情景的示例设定，尚未经过同地段成交数据校准。';
 }
-
-function setFocus(value){
-  if(!Number.isFinite(value))return;
-  focusYear=Math.max(1,Math.min(35,Math.round(value)));
-  $("focus").value=focusYear;
-  $("focusNumber").value=focusYear;
-  calculate();
-}
-
-$("focus").addEventListener("input",e=>{
-  setFocus(Number(e.target.value));
-});
-$("focusNumber").addEventListener("change",e=>{
-  setFocus(Number(e.target.value));
-});
-
-ids.forEach(id=>$(id).addEventListener("input",calculate));
-$("strategy").addEventListener("change",calculate);
-
-$("reset").onclick=()=>{
-  [...ids,"strategy"].forEach(id=>$(id).value=defaults[id]);
-  setFocus(15);
-};
-
-$("export").onclick=()=>{
-  const key=$("strategy").value;
-  const fee=1-Number($("saleFee").value)/100;
-
-  const csv=[
-    ["年份","租房净资产","选定买房方案","自住净资产",
-     "卖房方案","出租方案","剩余房贷","模拟房价","自住盈亏平衡售价"],
-    ...results.filter(r=>r.year%5===0).map(r=>[
-      r.year,r.renter,r[key],r.stay,r.sell,r.rentout,
-      r.remaining,r.house,
-      (r.renter-r.ownerInvest+r.remaining)/fee
-    ].map(v=>typeof v==="number"?v.toFixed(2):v))
-  ].map(row=>row.join(",")).join("\r\n");
-
-  const blob=new Blob(["\uFEFF"+csv],{
-    type:"text/csv;charset=utf-8"
-  });
-  const url=URL.createObjectURL(blob);
-  const link=document.createElement("a");
-  link.href=url;
-  link.download="buy_vs_rent_V3_2.csv";
-  link.click();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-};
-
-window.addEventListener("resize",calculate);
-visibility();
-calculate();
-
-})();
-</script>
-</body>
-</html>
+function draw(data){const c=$('chart'),W=c.clientWidth||500,H=245,dpr=window.devicePixelRatio||1;c.width=Math.round(W*dpr);c.height=Math.round(H*dpr);const x=c.getContext('2d');x.scale(dpr,dpr);const vals=data.flatMap(z=>[z.buy,z.rent]),min=Math.min(0,...vals),max=Math.max(1,...vals),pad=(max-min)*.12,lo=min-pad,hi=max+pad,L=46,R=11,T=20,B=28,X=t=>L+(W-L-R)*(t-1)/34,Y=v=>T+(H-T-B)*(hi-v)/(hi-lo);x.font='10px system-ui';x.strokeStyle='#e5ebf1';x.fillStyle='#758399';for(let i=0;i<5;i++){const v=lo+(hi-lo)*i/4,y=Y(v);x.beginPath();x.moveTo(L,y);x.lineTo(W-R,y);x.stroke();x.fillText(fm(v),2,y+3)}for(let y=5;y<=35;y+=5)x.fillText(y+'年',X(y)-13,H-8);[['buy','#2873b9'],['rent','#159a7d']].forEach(([field,color])=>{x.strokeStyle=color;x.lineWidth=2.5;x.beginPath();data.forEach((z,i)=>i?x.lineTo(X(z.year),Y(z[field])):x.moveTo(X(z.year),Y(z[field])));x.stroke()});x.setLineDash([4,4]);x.strokeStyle='#7b8da2';x.beginPath();x.moveTo(X(focus),T);x.lineTo(X(focus),H-B);x.stroke();x.setLineDash([])}
+ids.forEach(id=>$(id).addEventListener('input',calc));function updateCreditSettings(){const mode=$('creditMode').value;
+$('manualCreditWrap').hidden=mode!=='manual';$('manualYearsWrap').hidden=mode!=='manual';
+$('creditModeHelp').textContent=mode==='manual'?'手动填写每年减税金额和可减税年数；按固定年度预估，实际金额应核对贷款余额、税额及资格。':mode==='estimate'?'自动预估：使用年末贷款限额2000万、最长10年及每年可减税上限14万的简化假设。不是个人实际可享优惠保证。':'目前不计算住宅贷款减税。';}
+$('creditMode').addEventListener('change',()=>{updateCreditSettings();calc()});$('scenario').addEventListener('change',()=>{$('market').value=presets[$('scenario').value].market;calc()});$('year').addEventListener('input',e=>{focus=Number(e.target.value);calc()});$('reset').addEventListener('click',()=>{ids.forEach(id=>$(id).value=initial[id]);$('scenario').value='base';$('creditMode').value='none';updateCreditSettings();$('year').value=10;focus=10;calc()});$('export').addEventListener('click',()=>{const csv=['year,age_only_reference_price,house_price,buy_liquidation_net_worth,rent_net_worth,loan_balance,break_even_sale_price,buy_relative_investments,rent_relative_investments',...rows.map(r=>[r.year,r.ageOnly,r.sale,r.buy,r.rent,r.bal,r.breakEven,r.buyInvest,r.rentInvest].map(v=>Number(v).toFixed(2)).join(','))].join('\r\n');const u=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=u;a.download='buy_vs_rent_simple_v345.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)});window.addEventListener('resize',()=>{if(rows.length){draw(rows);drawAge(rows)}});updateCreditSettings();calc();})();
+</script></body></html>
