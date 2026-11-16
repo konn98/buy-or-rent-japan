@@ -1,117 +1,161 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f3f6fa">
-<title>日本买房 vs 租房 V3</title>
+<meta name="theme-color" content="#eef4fa">
+<title>买房 vs 租房 V3.2</title>
 <style>
-:root{font-family:system-ui,-apple-system,"Noto Sans SC",sans-serif;color:#203047;background:#f3f6fa}
+:root{
+  font-family:system-ui,-apple-system,"Noto Sans SC",sans-serif;
+  background:#f3f6fa;color:#203047
+}
 *{box-sizing:border-box}
 body{margin:0}
-main{max-width:1100px;margin:auto;padding:18px 12px 50px}
-h1{font-size:26px;margin:0 0 8px}
-h2{font-size:18px;margin:0 0 15px}
+main{max-width:1050px;margin:auto;padding:18px 12px 50px}
+h1{font-size:25px;margin:0 0 7px}
+h2{font-size:18px;margin:0 0 14px}
 p{line-height:1.6}
-small,.muted{color:#718096;font-size:12px}
-.layout{display:grid;grid-template-columns:370px 1fr;gap:15px;align-items:start}
-.card{background:white;border:1px solid #e0e5ee;border-radius:15px;padding:17px;margin-bottom:15px}
-.fields,.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-label{display:block;font-size:12px;font-weight:600;margin-bottom:5px}
-input,select{display:block;width:100%;border:1px solid #cbd5e1;background:white;color:#203047;border-radius:8px;padding:10px 8px;font-size:16px}
-.field small{display:block;margin-top:3px}
-.metric{background:#f1f6fc;border-radius:10px;padding:13px}
-.metric span{font-size:12px;color:#64748b}
-.metric strong{display:block;font-size:21px;margin-top:6px;overflow-wrap:anywhere}
-.wide{grid-column:span 2;background:#e5f0ff}
-.wide strong{color:#1765a8}
-button{border:0;border-radius:9px;padding:11px 14px;background:#2065ac;color:white;font-weight:700;cursor:pointer}
-button.secondary{background:#e9f1fa;color:#2065ac}
-.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
+small,.muted{color:#708095;font-size:12px}
+.layout{display:grid;grid-template-columns:360px 1fr;gap:15px;align-items:start}
+.card{background:#fff;border:1px solid #e1e7ef;border-radius:15px;padding:17px;margin-bottom:15px}
+.fields,.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}
+input:not([type=range]),select{
+  width:100%;background:#fff;color:#203047;
+  padding:10px 8px;border:1px solid #ccd7e5;
+  border-radius:8px;font-size:16px
+}
+.field small{display:block;margin-top:4px}
+.yearbox{background:#eaf3ff}
+.yearhead{display:flex;justify-content:space-between;align-items:center}
+.yearvalue{font-size:20px;font-weight:800;color:#1766af}
+input[type=range]{width:100%;accent-color:#236baa;margin:18px 0}
+.marks{display:flex;justify-content:space-between;font-size:11px;color:#718198}
+.metric{background:#f1f6fc;padding:13px;border-radius:10px}
+.metric span{font-size:12px;color:#68798d}
+.metric strong{display:block;font-size:20px;margin-top:6px;overflow-wrap:anywhere}
+.wide{grid-column:span 2;background:#e7f1ff}
+.wide strong{color:#165d9e}
 .scroll{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:490px;font-size:12px}
+table{width:100%;min-width:500px;border-collapse:collapse;font-size:12px}
 th,td{padding:11px 8px;border-bottom:1px solid #e5eaf0;text-align:right;white-space:nowrap}
 th:first-child,td:first-child{text-align:left}
-th{color:#64748b;background:#f8fafc}
-tr.active{background:#e7f1ff;font-weight:bold}
+th{background:#f8fafc;color:#607189}
+tr.active{background:#e7f1ff;font-weight:700}
 tr[data-year]{cursor:pointer}
-.plus{color:#078269}.minus{color:#be5638}
-canvas{display:block;width:100%;height:260px}
-.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:#64748b}
+.plus{color:#078269}.minus{color:#b95238}
+button{background:#2068ad;color:#fff;border:0;border-radius:9px;padding:11px 14px;font-weight:700;cursor:pointer}
+button.alt{background:#e7f0fa;color:#2068ad}
+.actions{display:flex;gap:9px;margin-top:14px}
+.hidden{display:none}
+.note{background:#f1f6fc;border-radius:9px;padding:12px;font-size:12px;line-height:1.8;color:#53657c}
+#error{color:#bd362e;font-size:12px}
+canvas{width:100%;height:250px;display:block}
+.legend{display:flex;gap:15px;font-size:11px;color:#66788d}
 .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
-.note{background:#f2f6fc;border-left:3px solid #75a5d8;padding:12px;border-radius:8px;font-size:12px;line-height:1.7}
-#error{color:#b91c1c;font-size:12px}
 @media(max-width:800px){.layout{grid-template-columns:1fr}}
-@media(max-width:420px){.card{padding:13px}h1{font-size:23px}.metric strong{font-size:19px}}
+@media(max-width:450px){.card{padding:13px}.metric strong{font-size:18px}}
 </style>
 </head>
 <body>
 <main>
-<header style="margin-bottom:20px">
-<h1>🏠 买房 vs 租房 V3</h1>
-<p class="muted">日本住房资产配置 · 5～35年 · 三种持有策略</p>
-</header>
+
+<h1>🏠 买房 vs 租房 V3.2</h1>
+<p class="muted">日本住房资产配置 · 1～35年 · 累计房价变化</p>
+
+<section class="card yearbox">
+  <div class="yearhead">
+    <div>
+      <h2>① 观察年份</h2>
+      <small>所有主要结果统一使用这一年</small>
+    </div>
+    <div class="yearvalue" id="yearText">第15年</div>
+  </div>
+  <input type="range" id="focus" min="1" max="35" value="15">
+  <div class="marks"><span>1年</span><span>5年</span><span>10年</span><span>15年</span><span>20年</span><span>25年</span><span>30年</span><span>35年</span></div>
+  <div class="field" style="margin-top:12px">
+    <label>也可以直接输入年份</label>
+    <input type="number" id="focusNumber" min="1" max="35" value="15">
+  </div>
+</section>
 
 <div class="layout">
 <div>
+
 <section class="card">
 <h2>基本参数</h2>
-<div class="fields" id="inputs">
-<div class="field"><label>房价（万日元）</label><input id="price" type="number" value="5500"></div>
-<div class="field"><label>首付比例（%）</label><input id="down" type="number" value="0"></div>
-<div class="field"><label>贷款利率（%）</label><input id="rate" type="number" value="1.1" step=".1"></div>
-<div class="field"><label>贷款期限（年）</label><input id="term" type="number" value="35"></div>
-<div class="field"><label>租房月租金（万）</label><input id="rent" type="number" value="18" step=".5"><small>包含停车位</small></div>
-<div class="field"><label>买房持有费（万/月）</label><input id="cost" type="number" value="6.7" step=".1"><small>管理、修缮、停车、税费</small></div>
-<div class="field"><label>初始购房费用（万）</label><input id="closing" type="number" value="300"></div>
-<div class="field"><label>卖房费用（%）</label><input id="saleFee" type="number" value="3"></div>
-<div class="field"><label>房价每年涨跌（%）</label><input id="growth" type="number" value="0" step=".5"></div>
-<div class="field"><label>投资年化回报（%）</label><input id="invest" type="number" value="5" step=".5"></div>
-<div class="field"><label>房租年涨幅（%）</label><input id="rentGrow" type="number" value="0" step=".5"></div>
-<div class="field"><label>持有费用年涨幅（%）</label><input id="costGrow" type="number" value="0" step=".5"></div>
-<div class="field"><label>房贷减税（万/年）</label><input id="benefit" type="number" value="0"><small>简化模拟，最多前13年</small></div>
-<div class="field"><label>重点观察年份</label><select id="focus"></select></div>
+<div class="fields">
+  <div class="field"><label>房价（万日元）</label><input id="price" type="number" value="5500"></div>
+  <div class="field"><label>首付金额（万日元）</label><input id="down" type="number" value="0"></div>
+  <div class="field"><label>贷款利率（%）</label><input id="rate" type="number" value="1.1" step="0.1"></div>
+  <div class="field"><label>贷款年限</label><input id="term" type="number" value="35"></div>
+  <div class="field"><label>租房月租金（万）</label><input id="rent" type="number" value="18"></div>
+  <div class="field"><label>买房持有费（万/月）</label><input id="cost" type="number" value="6.7"><small>管理、修缮、停车、税费等</small></div>
+  <div class="field"><label>初始购房费用（万）</label><input id="closing" type="number" value="300"></div>
+  <div class="field"><label>卖房费用（%）</label><input id="saleFee" type="number" value="3"></div>
+  <div class="field">
+    <label>35年累计房价变化（%）</label>
+    <input id="growth" type="number" value="-20">
+    <small>例如-20%表示35年总共下跌20%，不逐年复利</small>
+  </div>
+  <div class="field"><label>投资年化收益（%）</label><input id="invest" type="number" value="5"></div>
+  <div class="field"><label>房租年涨幅（%）</label><input id="rentGrow" type="number" value="0"></div>
+  <div class="field"><label>持有费年涨幅（%）</label><input id="costGrow" type="number" value="0"></div>
+  <div class="field"><label>房贷减税（万/年）</label><input id="benefit" type="number" value="0"><small>简化按最多前13年计算</small></div>
 </div>
 </section>
 
 <section class="card">
-<h2>搬走后的选择</h2>
-<div class="fields">
-<div class="field"><label>第几年搬走</label><select id="move"></select></div>
-<div class="field"><label>新住处月租金（万）</label><input id="newRent" type="number" value="18"></div>
-<div class="field"><label>原房出租月租（万）</label><input id="propertyRent" type="number" value="19"></div>
-<div class="field"><label>出租空置率（%）</label><input id="vacancy" type="number" value="8"></div>
-<div class="field"><label>出租管理费率（%）</label><input id="manage" type="number" value="5"></div>
-<div class="field"><label>出租维护预留（%）</label><input id="maintenance" type="number" value="8"></div>
-<div class="field"><label>出租税费预留（%）</label><input id="rentalTax" type="number" value="10"></div>
-<div class="field"><label>出租租金年变化（%）</label><input id="propertyRentGrow" type="number" value="0"></div>
+<h2>② 搬走后的选择</h2>
+<div class="field">
+<label>选择一种住房策略</label>
+<select id="strategy">
+<option value="stay">一直自住，不搬家</option>
+<option value="sell">搬走时卖房，之后租房</option>
+<option value="rentout">搬走后出租原房，自己租房</option>
+</select>
 </div>
-<p class="muted">以上出租费用为简化现金流假设。住宅贷款转出租需要另外核实银行许可。</p>
+
+<div id="moveSettings" class="hidden">
+<div class="fields" style="margin-top:15px">
+  <div class="field"><label>第几年搬走</label><input id="move" type="number" value="10" min="1" max="35"></div>
+  <div class="field"><label>搬家后新租金（万/月）</label><input id="newRent" type="number" value="18"></div>
+  <div class="field rental"><label>原房出租租金（万/月）</label><input id="propertyRent" type="number" value="19"></div>
+  <div class="field rental"><label>空置率（%）</label><input id="vacancy" type="number" value="8"></div>
+  <div class="field rental"><label>出租管理费（%）</label><input id="manage" type="number" value="5"></div>
+  <div class="field rental"><label>额外维修预留（%）</label><input id="maintenance" type="number" value="8"></div>
+  <div class="field rental"><label>出租税费预留（%）</label><input id="rentalTax" type="number" value="10"></div>
+  <div class="field rental"><label>出租租金年涨幅（%）</label><input id="propertyRentGrow" type="number" value="0"></div>
+</div>
+</div>
+
+<p class="muted">搬走年份独立于观察年份。转出租需要事先确认银行贷款合同是否允许。</p>
 <div id="error"></div>
 <div class="actions">
-<button class="secondary" id="reset">恢复默认</button>
-<button id="export">导出 CSV</button>
+<button class="alt" id="reset">恢复默认</button>
+<button id="export">导出CSV</button>
 </div>
 </section>
 </div>
 
 <div>
+
 <section class="card">
-<h2>重点年份结果</h2>
+<h2 id="resultTitle">第15年 · 核心结果</h2>
 <div class="metrics">
-<div class="metric"><span>初始月供</span><strong id="mortgage">—</strong></div>
-<div class="metric"><span>初始买房月支出</span><strong id="outflow">—</strong></div>
-<div class="metric"><span>租房期末投资资产</span><strong id="renter">—</strong></div>
-<div class="metric"><span>买房期末净资产</span><strong id="owner">—</strong></div>
-<div class="metric wide"><span id="headline">净资产领先方</span><strong id="result">—</strong></div>
+  <div class="metric"><span>初始每月房贷</span><strong id="mortgage">—</strong></div>
+  <div class="metric"><span>初始买房月支出</span><strong id="outflow">—</strong></div>
+  <div class="metric"><span>一直租房期末净资产</span><strong id="renter">—</strong></div>
+  <div class="metric"><span>所选买房方案期末净资产</span><strong id="owner">—</strong></div>
+  <div class="metric wide"><span>买房 vs 租房</span><strong id="difference">—</strong></div>
 </div>
 <p class="muted" id="detail"></p>
 </section>
 
 <section class="card">
-<h2>三种买房策略 vs 一直租房</h2>
-<p class="muted" id="scenario"></p>
+<h2 id="scenarioTitle">第15年 · 策略比较</h2>
 <div class="scroll">
 <table>
 <thead><tr><th>方案</th><th>净资产（万）</th><th>相对租房（万）</th></tr></thead>
@@ -123,234 +167,242 @@ canvas{display:block;width:100%;height:260px}
 
 <section class="card">
 <h2>每5年盈亏平衡售价</h2>
-<p class="muted">未来房子至少卖多少钱，买房的净资产才不低于租房投资？点击年份可切换重点结果。</p>
+<p class="muted">以下仅针对一直自住后出售的方案。点击年份即可切换观察年份。</p>
 <div class="scroll">
 <table>
-<thead><tr><th>年限</th><th>保本售价（万）</th><th>相对买入价</th><th>买房领先（万）</th></tr></thead>
+<thead><tr><th>年份</th><th>所需卖价（万）</th><th>相对买入价</th><th>买房领先（万）</th></tr></thead>
 <tbody id="breakTable"></tbody>
 </table>
 </div>
 </section>
 
 <section class="card">
-<h2>5～35年净资产变化</h2>
+<h2>1～35年净资产变化</h2>
 <canvas id="chart"></canvas>
 <div class="legend">
-<span><i class="dot" style="background:#2669ac"></i>继续自住</span>
-<span><i class="dot" style="background:#18a17a"></i>一直租房</span>
-<span><i class="dot" style="background:#d68b43"></i>中途卖房</span>
-<span><i class="dot" style="background:#8b70c5"></i>中途出租</span>
+<span><i class="dot" style="background:#246bb1"></i>买房方案</span>
+<span><i class="dot" style="background:#16a17c"></i>租房投资</span>
 </div>
 </section>
+
 </div>
 </div>
 
 <section class="card">
-<h2>计算说明</h2>
+<h2>模型说明</h2>
 <p class="muted">
-本工具以双方相同初始资金及每月预算为比较基础。
-买房净资产按房屋售价扣除出售费用、剩余房贷，再加上金融资产计算。
-租房者将买房所需首付和初期费用，以及每月现金流差额进行投资。
-中途卖房后，卖房净收益继续投资；中途出租则保留贷款并计算净租金和新住房租金。
-</p>
-<p class="muted">
-实际使用时还应考虑住宅贷款减税资格、浮动利率变化、租房更新料、维修特别征收、资本利得税、出租所得税和贷款用途限制。
-本工具是情景模拟，不保证投资收益或房价表现。
+买房净资产包括房屋估计售价、剩余贷款、出售费用及金融资产。
+租房方案投资买房本来需要支付的首付、购房费用和住房现金流差额。
+房价按35年累计变化率线性插值，不逐年复利；投资收益仍按复利模拟。
+未完整计入实际投资税、房地产转让所得税、租赁更新费、装修和特殊修缮费用。
+贷款利率假设长期不变，现实中的浮动贷款存在升息风险。
+如果金融资产为负，表示模型需要额外融资，不能理解为现实中可无限借款。
 </p>
 </section>
+
 </main>
 
 <script>
 (()=>{
 "use strict";
 
+const $=id=>document.getElementById(id);
 const ids=[
 "price","down","rate","term","rent","cost","closing",
-"saleFee","growth","invest","rentGrow","costGrow",
-"benefit","focus","move","newRent","propertyRent",
-"vacancy","manage","maintenance","rentalTax","propertyRentGrow"
+"saleFee","growth","invest","rentGrow","costGrow","benefit",
+"move","newRent","propertyRent","vacancy","manage",
+"maintenance","rentalTax","propertyRentGrow"
 ];
-const $=id=>document.getElementById(id);
-const years=[5,10,15,20,25,30,35];
-for(const id of ["focus","move"]){
-  $(id).innerHTML=years.map(y=>
-    `<option value="${y}">${y}年</option>`
-  ).join("");
-}
-$("focus").value="15";
-$("move").value="10";
 
-const defaults=Object.fromEntries(ids.map(id=>[id,$(id).value]));
-const number=id=>Number($(id).value);
-const fmt=n=>Number.isFinite(n)
-  ?n.toLocaleString("zh-CN",{maximumFractionDigits:1})
-  :"—";
+const defaults=Object.fromEntries(
+  [...ids,"strategy"].map(id=>[id,$(id).value])
+);
+
+let focusYear=15;
+let results=[];
+
+const fmt=n=>Number.isFinite(n)?
+  n.toLocaleString("zh-CN",{maximumFractionDigits:1}):"—";
 const money=n=>fmt(n)+"万";
-let exportRows=[];
 
-function simulate(){
-  const a=Object.fromEntries(ids.map(id=>[id,number(id)]));
-  const invalid=ids.some(id=>$(id).value===""||!Number.isFinite(a[id]))
-   ||a.price<=0||a.down<0||a.down>100
-   ||a.rate<0||a.term<1||a.term>50
-   ||a.saleFee<0||a.saleFee>=100
-   ||a.vacancy<0||a.vacancy>100
-   ||[a.manage,a.maintenance,a.rentalTax].some(v=>v<0||v>100)
-   ||[a.rent,a.cost,a.closing,a.benefit,a.newRent,a.propertyRent].some(v=>v<0)
-   ||[a.growth,a.invest,a.rentGrow,a.costGrow,a.propertyRentGrow].some(v=>v<=-100);
+function visibility(){
+  const s=$("strategy").value;
+  $("moveSettings").classList.toggle("hidden",s==="stay");
+  document.querySelectorAll(".rental").forEach(el=>{
+    el.classList.toggle("hidden",s!=="rentout");
+  });
+}
 
-  if(invalid){
-    $("error").textContent="参数有误，请检查金额、比例和年变化率。";
+function calculate(){
+  const a=Object.fromEntries(ids.map(id=>[id,Number($(id).value)]));
+  const strategy=$("strategy").value;
+
+  const bad=ids.some(id=>$(id).value===""||!Number.isFinite(a[id]))
+    ||a.price<=0||a.down<0||a.down>a.price
+    ||a.rate<0||a.term<1||a.term>50
+    ||a.saleFee<0||a.saleFee>=100
+    ||a.growth<=-100||a.invest<=-100
+    ||a.rentGrow<=-100||a.costGrow<=-100
+    ||a.propertyRentGrow<=-100
+    ||a.move<1||a.move>35||!Number.isInteger(a.move)
+    ||[a.rent,a.cost,a.closing,a.benefit,a.newRent,
+        a.propertyRent].some(v=>v<0)
+    ||[a.vacancy,a.manage,a.maintenance,a.rentalTax]
+        .some(v=>v<0||v>100);
+
+  if(bad){
+    $("error").textContent="参数有误：请检查金额、首付及百分比。";
     return;
   }
-  $("error").textContent="";
 
-  const loan=a.price*(1-a.down/100);
-  const months=a.term*12;
+  $("error").textContent="";
+  visibility();
+
+  const loan=a.price-a.down;
+  const totalMonths=a.term*12;
   const r=a.rate/1200;
-  const payment=loan===0?0:r===0?loan/months:
-    loan*r/(1-Math.pow(1+r,-months));
   const ir=Math.pow(1+a.invest/100,1/12)-1;
   const saleFactor=1-a.saleFee/100;
   const moveMonth=a.move*12;
 
-  function remaining(m){
-    if(m>=months)return 0;
-    if(r===0)return Math.max(0,loan-payment*m);
+  const payment=loan===0?0:r===0?
+    loan/totalMonths:
+    loan*r/(1-Math.pow(1+r,-totalMonths));
+
+  function balance(month){
+    if(month>=totalMonths)return 0;
+    if(r===0)return Math.max(0,loan-payment*month);
     return Math.max(0,
-      loan*Math.pow(1+r,m)
-      -payment*(Math.pow(1+r,m)-1)/r);
+      loan*Math.pow(1+r,month)
+      -payment*(Math.pow(1+r,month)-1)/r
+    );
   }
 
-  const ownerInitial=a.price*a.down/100+a.closing;
-  let renterInvestment=ownerInitial;
-  let ownerInvestment=0;
-  let sellerInvestment=0;
-  let landlordInvestment=0;
+  // 房价采用35年累计变化，不使用复利
+  function housePrice(year){
+    return a.price*(1+a.growth/100*year/35);
+  }
+
+  let renter=a.down+a.closing;
+  let ownerInvest=0;
+  let sellerInvest=0;
+  let landlordInvest=0;
 
   const rows=[];
 
   for(let month=1;month<=420;month++){
-    const yearIndex=Math.floor((month-1)/12);
-    const ownerCost=
-      (month<=months?payment:0)
-      +a.cost*Math.pow(1+a.costGrow/100,yearIndex);
-    const rentCost=a.rent*Math.pow(1+a.rentGrow/100,yearIndex);
-    const taxBenefit=month<=156?a.benefit/12:0;
+    const yi=Math.floor((month-1)/12);
 
-    // 租房者投资初始购房资金和每月住房现金流差额
-    renterInvestment=
-      renterInvestment*(1+ir)+ownerCost-rentCost;
+    const ownCost=(month<=totalMonths?payment:0)
+      +a.cost*Math.pow(1+a.costGrow/100,yi);
+    const rentCost=a.rent*Math.pow(1+a.rentGrow/100,yi);
 
-    // 一直自住
-    ownerInvestment=
-      ownerInvestment*(1+ir)+taxBenefit;
+    renter=renter*(1+ir)+ownCost-rentCost;
 
-    // 搬家前，卖房与出租方案均按继续自住处理
-    if(month<=moveMonth){
-      sellerInvestment=sellerInvestment*(1+ir)+taxBenefit;
-      landlordInvestment=landlordInvestment*(1+ir)+taxBenefit;
-    }else{
-      const elapsed=month-moveMonth-1;
-      const afterYears=Math.floor(elapsed/12);
-      const newHousingRent=a.newRent*
-        Math.pow(1+a.rentGrow/100,afterYears);
+    const tax=month<=156?a.benefit/12:0;
 
-      // 卖房后，省下旧房现金支出，但支付新住房租金
-      sellerInvestment=
-        sellerInvestment*(1+ir)+ownerCost-newHousingRent;
+    ownerInvest=ownerInvest*(1+ir)+tax;
+    sellerInvest=sellerInvest*(1+ir)+(month<=moveMonth?tax:0);
+    landlordInvest=landlordInvest*(1+ir)+(month<=moveMonth?tax:0);
 
-      // 出租原房时，旧房贷款等照付
-      const gross=a.propertyRent*
-        Math.pow(1+a.propertyRentGrow/100,afterYears);
-      const effectiveRent=gross*(1-a.vacancy/100);
-      const netRent=effectiveRent*
-        Math.max(0,1-(a.manage+a.maintenance+a.rentalTax)/100);
-
-      landlordInvestment=
-        landlordInvestment*(1+ir)+netRent-newHousingRent;
+    if(month===moveMonth){
+      const sale=housePrice(a.move)*saleFactor-balance(month);
+      sellerInvest+=sale;
     }
 
-    // 在搬家时卖掉原房
-    if(month===moveMonth){
-      const salePrice=a.price*
-        Math.pow(1+a.growth/100,a.move);
-      const saleNet=salePrice*saleFactor-remaining(month);
-      sellerInvestment+=saleNet;
+    if(month>moveMonth){
+      const elapsed=Math.floor((month-moveMonth-1)/12);
+      const newRent=a.newRent*
+        Math.pow(1+a.rentGrow/100,elapsed);
+
+      // 卖房后不再支付旧房贷款和持有费用
+      sellerInvest+=ownCost-newRent;
+
+      // 出租方案仍支付旧房贷款及持有费用
+      const gross=a.propertyRent*
+        Math.pow(1+a.propertyRentGrow/100,elapsed);
+      const netRent=gross*(1-a.vacancy/100)*
+        Math.max(0,1-(a.manage+a.maintenance+a.rentalTax)/100);
+
+      landlordInvest+=netRent-newRent;
     }
 
     if(month%12===0){
       const year=month/12;
-      const house=a.price*Math.pow(1+a.growth/100,year);
-      const balance=remaining(month);
-      const equity=house*saleFactor-balance;
+      const house=housePrice(year);
+      const remaining=balance(month);
+      const equity=house*saleFactor-remaining;
 
       rows.push({
-        year,
-        house,
-        balance,
-        equity,
-        renter:renterInvestment,
-        owner:equity+ownerInvestment,
-        seller:year<a.move
-          ?equity+sellerInvestment
-          :sellerInvestment,
-        landlord:equity+landlordInvestment,
-        ownerInvestment
+        year,house,remaining,
+        renter,
+        stay:equity+ownerInvest,
+        sell:year<a.move?equity+sellerInvest:sellerInvest,
+        rentout:equity+landlordInvest,
+        ownerInvest
       });
     }
   }
 
-  const selected=rows[a.focus-1];
-  const delta=selected.owner-selected.renter;
+  const d=rows[focusYear-1];
+  const chosen=d[strategy];
+  const diff=chosen-d.renter;
+
+  const names={
+    stay:"一直自住",
+    sell:`第${a.move}年卖房后租房`,
+    rentout:`第${a.move}年出租原房`
+  };
+  const name=names[strategy];
+
+  $("yearText").textContent=`第${focusYear}年`;
+  $("resultTitle").textContent=`第${focusYear}年 · 核心结果`;
+  $("scenarioTitle").textContent=`第${focusYear}年 · ${name} vs 租房`;
 
   $("mortgage").textContent=money(payment);
   $("outflow").textContent=money(payment+a.cost);
-  $("renter").textContent=money(selected.renter);
-  $("owner").textContent=money(selected.owner);
-  $("headline").textContent=`第${a.focus}年 · 买房与租房比较`;
-  $("result").textContent=
-    (delta>=0?"买房领先 ":"租房领先 ")+money(Math.abs(delta));
+  $("renter").textContent=money(d.renter);
+  $("owner").textContent=money(chosen);
+  $("difference").textContent=
+    (diff>=0?"买房领先 ":"租房领先 ")+money(Math.abs(diff));
 
   $("detail").textContent=
-    `首月利息约${fmt(loan*r)}万，本金约${fmt(payment-loan*r)}万。`+
-    `第${a.focus}年剩余贷款约${fmt(selected.balance)}万。`;
+    `首期贷款利息约${fmt(loan*r)}万，`+
+    `还款本金约${fmt(payment-loan*r)}万。`+
+    `第${focusYear}年剩余贷款${fmt(d.remaining)}万，`+
+    `模拟房价${fmt(d.house)}万。`;
 
-  const paths=[
-    ["继续自住",selected.owner],
-    [`第${a.move}年卖房后租房`,selected.seller],
-    [`第${a.move}年出租原房`,selected.landlord],
-    ["一直租房＋投资",selected.renter]
-  ];
-
-  $("scenario").textContent=
-    `假设第${a.move}年搬走，当前观察第${a.focus}年。`;
-
-  $("paths").innerHTML=paths.map(([name,value])=>{
-    const diff=value-selected.renter;
+  $("paths").innerHTML=[
+    [name,chosen],
+    ["一直租房＋投资",d.renter]
+  ].map(([label,value])=>{
+    const delta=value-d.renter;
     return `<tr>
-      <td>${name}</td>
+      <td>${label}</td>
       <td>${fmt(value)}</td>
-      <td class="${diff>=0?"plus":"minus"}">
-        ${diff>=0?"+":""}${fmt(diff)}
+      <td class="${delta>=0?"plus":"minus"}">
+        ${delta>=0?"+":""}${fmt(delta)}
       </td>
     </tr>`;
   }).join("");
 
-  $("pathNote").textContent=a.focus<=a.move
-    ?"目前观察年份尚未超过搬走年份。请选择更晚的年份比较搬家后的结果。"
-    :"中途卖房方案假设卖房收益继续投资；出租方案计算净租金、新住房租金和原房的期末净权益。";
+  $("pathNote").textContent=strategy==="stay"?
+    "继续自住，观察年末按出售房屋后的净值计算。":
+    focusYear<=a.move?
+      `观察第${focusYear}年，尚未进入第${a.move}年搬家后的阶段。`:
+      strategy==="sell"?
+        "搬走时出售房屋，扣除剩余房贷和出售费用，剩余资金继续投资并承担新住房租金。":
+        "保留原房出租，继续支付旧房贷款和持有费用，同时承担新住房租金。";
 
-  $("breakTable").innerHTML=years.map(y=>{
+  $("breakTable").innerHTML=[5,10,15,20,25,30,35].map(y=>{
     const z=rows[y-1];
-    const threshold=
-      (z.renter-z.ownerInvestment+z.balance)/saleFactor;
-    const change=(threshold/a.price-1)*100;
-    const advantage=z.owner-z.renter;
-    return `<tr data-year="${y}" class="${y===a.focus?"active":""}">
+    const threshold=(z.renter-z.ownerInvest+z.remaining)/saleFactor;
+    const pct=(threshold/a.price-1)*100;
+    const advantage=z.stay-z.renter;
+    return `<tr data-year="${y}" class="${y===focusYear?"active":""}">
       <td>${y}年</td>
       <td>${fmt(threshold)}</td>
-      <td>${change>=0?"+":""}${fmt(change)}%</td>
+      <td>${pct>=0?"+":""}${fmt(pct)}%</td>
       <td class="${advantage>=0?"plus":"minus"}">
         ${advantage>=0?"+":""}${fmt(advantage)}
       </td>
@@ -358,52 +410,45 @@ function simulate(){
   }).join("");
 
   document.querySelectorAll("tr[data-year]").forEach(tr=>{
-    tr.onclick=()=>{
-      $("focus").value=tr.dataset.year;
-      simulate();
-    };
+    tr.onclick=()=>setFocus(Number(tr.dataset.year));
   });
 
-  exportRows=rows;
-  draw(rows);
+  results=rows;
+  draw(rows,strategy);
 }
 
-function draw(rows){
-  const canvas=$("chart");
-  const width=canvas.clientWidth||500;
-  const height=260;
+function draw(rows,key){
+  const c=$("chart");
+  const w=c.clientWidth||500,h=250;
   const dpr=window.devicePixelRatio||1;
-  canvas.width=width*dpr;
-  canvas.height=height*dpr;
+  c.width=Math.round(w*dpr);
+  c.height=Math.round(h*dpr);
 
-  const ctx=canvas.getContext("2d");
+  const ctx=c.getContext("2d");
   ctx.scale(dpr,dpr);
-  ctx.clearRect(0,0,width,height);
+  ctx.clearRect(0,0,w,h);
 
-  const keys=["owner","renter","seller","landlord"];
-  const colors=["#2669ac","#18a17a","#d68b43","#8b70c5"];
-  const vals=rows.flatMap(row=>keys.map(key=>row[key]));
-  const min=Math.min(0,...vals);
-  const max=Math.max(1,...vals);
-  const space=(max-min)*.09;
-  const lo=min-space,hi=max+space;
-  const margin={left:49,right:10,top:15,bottom:32};
+  const values=rows.flatMap(x=>[x[key],x.renter]);
+  const min0=Math.min(0,...values);
+  const max0=Math.max(1,...values);
+  const padding=(max0-min0)*0.1;
+  const lo=min0-padding,hi=max0+padding;
+  const left=48,right=10,top=20,bottom=32;
 
-  const X=y=>margin.left+
-    (width-margin.left-margin.right)*y/35;
-  const Y=v=>margin.top+
-    (height-margin.top-margin.bottom)*(hi-v)/(hi-lo);
+  const X=y=>left+(w-left-right)*y/35;
+  const Y=v=>top+(h-top-bottom)*(hi-v)/(hi-lo);
 
   ctx.font="10px system-ui";
-  ctx.strokeStyle="#e3e9ef";
+  ctx.strokeStyle="#e4eaf0";
   ctx.fillStyle="#718198";
   ctx.lineWidth=1;
 
   for(let i=0;i<5;i++){
-    const v=lo+(hi-lo)*i/4,y=Y(v);
+    const v=lo+(hi-lo)*i/4;
+    const y=Y(v);
     ctx.beginPath();
-    ctx.moveTo(margin.left,y);
-    ctx.lineTo(width-margin.right,y);
+    ctx.moveTo(left,y);
+    ctx.lineTo(w-right,y);
     ctx.stroke();
     ctx.fillText(fmt(v),3,y+4);
   }
@@ -411,37 +456,69 @@ function draw(rows){
   for(let y=0;y<=35;y+=5){
     const x=X(y);
     ctx.beginPath();
-    ctx.moveTo(x,margin.top);
-    ctx.lineTo(x,height-margin.bottom);
+    ctx.moveTo(x,top);
+    ctx.lineTo(x,h-bottom);
     ctx.stroke();
-    ctx.fillText(y+"年",Math.max(0,x-12),height-10);
+    ctx.fillText(y+"年",Math.max(0,x-12),h-10);
   }
 
-  keys.forEach((key,index)=>{
+  [[key,"#246bb1"],["renter","#16a17c"]].forEach(([field,color])=>{
     ctx.beginPath();
-    ctx.strokeStyle=colors[index];
+    ctx.strokeStyle=color;
     ctx.lineWidth=2;
     rows.forEach((row,i)=>{
-      if(i===0)ctx.moveTo(X(row.year),Y(row[key]));
-      else ctx.lineTo(X(row.year),Y(row[key]));
+      if(i===0)ctx.moveTo(X(row.year),Y(row[field]));
+      else ctx.lineTo(X(row.year),Y(row[field]));
     });
     ctx.stroke();
   });
+
+  const x=X(focusYear);
+  ctx.setLineDash([4,4]);
+  ctx.strokeStyle="#344960";
+  ctx.beginPath();
+  ctx.moveTo(x,top);
+  ctx.lineTo(x,h-bottom);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle="#344960";
+  ctx.fillText(`第${focusYear}年`,Math.min(w-60,x),13);
 }
 
-ids.forEach(id=>$(id).addEventListener("input",simulate));
+function setFocus(value){
+  if(!Number.isFinite(value))return;
+  focusYear=Math.max(1,Math.min(35,Math.round(value)));
+  $("focus").value=focusYear;
+  $("focusNumber").value=focusYear;
+  calculate();
+}
+
+$("focus").addEventListener("input",e=>{
+  setFocus(Number(e.target.value));
+});
+$("focusNumber").addEventListener("change",e=>{
+  setFocus(Number(e.target.value));
+});
+
+ids.forEach(id=>$(id).addEventListener("input",calculate));
+$("strategy").addEventListener("change",calculate);
 
 $("reset").onclick=()=>{
-  ids.forEach(id=>$(id).value=defaults[id]);
-  simulate();
+  [...ids,"strategy"].forEach(id=>$(id).value=defaults[id]);
+  setFocus(15);
 };
 
 $("export").onclick=()=>{
+  const key=$("strategy").value;
+  const fee=1-Number($("saleFee").value)/100;
+
   const csv=[
-    ["年份","租房净资产","自住净资产","卖房路径净资产",
-     "出租路径净资产","剩余贷款","估计房价"],
-    ...exportRows.filter(r=>r.year%5===0).map(r=>[
-      r.year,r.renter,r.owner,r.seller,r.landlord,r.balance,r.house
+    ["年份","租房净资产","选定买房方案","自住净资产",
+     "卖房方案","出租方案","剩余房贷","模拟房价","自住盈亏平衡售价"],
+    ...results.filter(r=>r.year%5===0).map(r=>[
+      r.year,r.renter,r[key],r.stay,r.sell,r.rentout,
+      r.remaining,r.house,
+      (r.renter-r.ownerInvest+r.remaining)/fee
     ].map(v=>typeof v==="number"?v.toFixed(2):v))
   ].map(row=>row.join(",")).join("\r\n");
 
@@ -451,13 +528,15 @@ $("export").onclick=()=>{
   const url=URL.createObjectURL(blob);
   const link=document.createElement("a");
   link.href=url;
-  link.download="buy_vs_rent_V3.csv";
+  link.download="buy_vs_rent_V3_2.csv";
   link.click();
   setTimeout(()=>URL.revokeObjectURL(url),1000);
 };
 
-window.addEventListener("resize",simulate);
-simulate();
+window.addEventListener("resize",calculate);
+visibility();
+calculate();
+
 })();
 </script>
 </body>
