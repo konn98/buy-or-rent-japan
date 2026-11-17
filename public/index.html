@@ -1,11 +1,11 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f6fa"><title>买房还是租房 · 简洁版 V3.4.7</title><style>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f6fa"><title>买房还是租房 · 透明计算版 V3.4.8</title><style>
 :root{font-family:system-ui,-apple-system,"Noto Sans SC",sans-serif;color:#253248;background:#f4f7fa}*{box-sizing:border-box}body{margin:0}main{max-width:1040px;margin:0 auto;padding:20px 13px 55px}h1{font-size:25px;margin:0 0 6px}h2{font-size:17px;margin:0 0 14px}.muted{color:#718197;font-size:12px;line-height:1.6}.layout{display:grid;grid-template-columns:350px 1fr;gap:15px;align-items:start}.card{background:white;border:1px solid #e2e8f0;border-radius:15px;padding:16px;margin-bottom:15px}.fields,.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.field label{display:block;font-size:12px;font-weight:600;margin-bottom:5px}input:not([type=range]),select{width:100%;font-size:15px;padding:9px 8px;border:1px solid #c9d5e1;border-radius:8px;background:#fff;color:#24364a}.field small{color:#758399;font-size:11px;display:block;margin-top:4px}.yearbox{background:#eaf3ff}.yearline{display:flex;justify-content:space-between;align-items:center}.yearnumber{font-size:22px;font-weight:750;color:#2367a5}input[type=range]{width:100%;accent-color:#286cac;margin:16px 0}.metric{background:#f0f5fa;border-radius:10px;padding:12px}.metric span{display:block;color:#68778b;font-size:11px}.metric strong{display:block;font-size:19px;margin-top:5px;overflow-wrap:anywhere}.headline{grid-column:span 2;background:#eaf3ff}.headline strong{color:#175d9e}.notice{font-size:12px;line-height:1.7;padding:11px;border-radius:9px;background:#f0f5fb;color:#4c5d72;margin-top:12px}.warning{background:#fff1df;color:#885112}.success{background:#e9f7ef;color:#20714b}.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:520px;font-size:12px}td,th{padding:10px 8px;text-align:right;border-bottom:1px solid #e8edf3}td:first-child,th:first-child{text-align:left}th{background:#f7f9fc;color:#6d7c8d}tr.current{background:#eaf3ff;font-weight:700}tr[data-year]{cursor:pointer}canvas{width:100%;height:245px;display:block}.legend{font-size:11px;color:#6d7d90}.legend span{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}button{background:#2269a9;border:0;color:#fff;padding:10px 13px;border-radius:9px;font-weight:700;cursor:pointer}.actions{display:flex;gap:8px;flex-wrap:wrap}.secondary{background:#e9f1f9;color:#29649a}.positive{color:#078467}.negative{color:#c24c36}.full{grid-column:span 2}@media(max-width:800px){.layout{grid-template-columns:1fr}}@media(max-width:400px){.card{padding:12px}.metric strong{font-size:17px}}
 
 .subsection-title{font-size:13px;font-weight:750;color:#375a7e;margin:2px 0 10px;letter-spacing:.02em}
 .subsection-divider{border:0;border-top:1px solid #dce5ee;margin:20px 0 16px}
 .tax-settings[hidden]{display:none!important}.readonly-value{border:1px solid #d7e3ee;border-radius:8px;padding:10px;background:#f1f5f9;font-weight:750;color:#234b70;font-size:15px} .price-detail{margin-top:10px;padding-top:9px;border-top:1px solid #e2e8f0}
 .cash-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.cash-cell{background:#f0f5fa;border-radius:10px;padding:12px}.cash-cell span{display:block;color:#64748b;font-size:11px;line-height:1.5}.cash-cell strong{display:block;margin-top:6px;font-size:20px;overflow-wrap:anywhere}.cash-win{background:#eaf5ef}.cash-note{font-size:12px;color:#62748b;line-height:1.65;margin-top:10px}.cash-title{font-weight:700;margin-bottom:9px;font-size:13px}@media(max-width:430px){.cash-row{gap:6px}.cash-cell{padding:9px 7px}.cash-cell strong{font-size:16px}}
-</style></head><body><main><h1>🏠 买房 vs 租房</h1><p class="muted">简洁版 V3.4.6 · 假设第 X 年出售结清 · 优质地段公寓情景</p>
+</style></head><body><main><h1>🏠 买房 vs 租房</h1><p class="muted">透明计算版 V3.4.8 · 假设第 X 年出售结清 · 优质地段公寓情景</p>
 <section class="card yearbox"><div class="yearline"><div><h2>观察年份＝出售年份</h2><div class="muted">所有结果同步切换</div></div><strong class="yearnumber" id="yearText">第15年</strong></div><input id="year" type="range" min="1" max="35" value="15"><div style="display:flex;justify-content:space-between" class="muted"><span>1年</span><span>5年</span><span>15年</span><span>25年</span><span>35年</span></div></section>
 <div class="layout"><div>
 <section class="card"><h2>① 房子与房贷</h2><div class="fields">
@@ -16,7 +16,7 @@
 <div class="field"><label>贷款年限</label><input type="number" id="term" value="35"></div>
 <div class="field"><label>购房一次性费用（万）</label><input type="number" id="closing" value="300"></div>
 <div class="field full"><label>优质地段房价情景</label><select id="scenario"><option value="base">基准：老化折价＋当地市场长期持平</option><option value="low">保守：老化折价较高＋市场走弱</option><option value="high" selected>乐观：老化折价较低＋市场走强</option></select><small>这是敏感性测试曲线，不是已校准的官方好地段预测。</small></div>
-<div class="field"><label>观察年份累计市场变化（%）</label><input type="number" id="market" value="10" step="5"><small>截至观察年份的总变化；其他年份按线性路径插值或外推，不逐年复利</small></div>
+<div class="field"><label>15年累计市场变化（%）</label><input type="number" id="market" value="10" step="5"><small>固定以15年为市场变化锚点；观察年份仅改变出售年份。超过15年按相同线性斜率外推，不逐年复利</small></div>
 <div class="field"><label>出售相关费用（%）</label><input type="number" id="saleFee" value="3" step="0.1"></div>
 </div><div class="notice">房价只考虑 <b>买入时的房龄＋未来老化影响＋截至观察年份的累计市场变化</b>。不需要填车站、地区或上传交易数据。具体老化参数为示范假设。</div></section>
 <section class="card"><h2>② 每月居住费用</h2>
@@ -75,12 +75,25 @@
 <div id="ageChartNote" class="notice"></div>
 </div></section>
 <section class="card"><h2>净资产随时间变化</h2><canvas id="chart"></canvas><div class="legend"><span style="background:#2873b9"></span>买房出售后　<span style="background:#159a7d"></span>一直租房</div></section>
-<section class="card"><h2>公式说明</h2><p class="muted">房价 = 买入价格 ×〔土地权重 + 建筑权重 × 建筑老化相对系数〕×（1 + 观察年份累计市场变化率 × 年数/观察年份）。观察年份之后按相同线性斜率外推，并限制售价不能为负。土地权重和建筑老化速度是不同情景下的<strong>假设参数</strong>，不是官方认证数据。买房净资产 = 预计售价 − 出售费用 − 剩余贷款 + 金融资产；租房净资产 = 金融资产。初始资金等于首付＋购房初期费用；买房者支付首付及费用，租房者扣除自身初期费用后投资。卖房所得税、贷款利率变化和重大特殊维修费尚未建模。本模型不需要输入共同月预算，按每月住房现金流差额投资；不判断家庭支付能力。</p></section>
+<section class="card" id="auditSection"><h2>🔎 计算审计明细 · V3.4.8</h2>
+<p class="muted">以第0年相同初始资金为基准，逐月核对住房支出差额、实际投入与投资收益。余额是用于比较的相对投资账户，不是全部家庭存款。金额单位：万日元。</p>
+<div id="auditCheck" class="notice"></div>
+<details open><summary style="cursor:pointer;font-weight:700;margin:12px 0">观察年份结算拆解</summary>
+<table style="min-width:0"><tbody id="auditSettlement"></tbody></table></details>
+<details><summary style="cursor:pointer;font-weight:700;margin:12px 0">查看逐年流水（1～35年）</summary>
+<div class="scroll"><table><thead><tr><th>年</th><th>买房支出</th><th>租房支出</th><th>买方新增投资</th><th>租方新增投资</th><th>买方复利</th><th>租方复利</th><th>买方账户末值</th><th>租方账户末值</th></tr></thead><tbody id="auditYearRows"></tbody></table></div></details>
+<details><summary style="cursor:pointer;font-weight:700;margin:12px 0">查看指定年份的12个月流水</summary>
+<div class="field" style="max-width:180px;margin:9px 0"><label for="auditYear">查看年份</label><select id="auditYear"></select></div>
+<div class="scroll"><table><thead><tr><th>月</th><th>贷款还款</th><th>当月利息</th><th>偿还本金</th><th>买房支出</th><th>租房支出</th><th>减税</th><th>买方投入</th><th>租方投入</th><th>买方投资收益</th><th>租方投资收益</th><th>买方期末账户</th><th>租方期末账户</th></tr></thead><tbody id="auditMonthRows"></tbody></table></div></details>
+<div class="actions" style="margin-top:12px"><button id="auditExport" class="secondary">导出完整420个月审计 CSV</button></div>
+<p class="muted">平衡校验逐月检查：期初账户＋投资收益＋当月投入＝期末账户；房贷前期余额－偿还本金＝期末余额；净资产＝出售售价－费用－贷款＋投资账户。</p>
+</section>
+<section class="card"><h2>公式说明</h2><p class="muted">房价 = 买入价格 ×〔土地权重 + 建筑权重 × 建筑老化相对系数〕×（1 + 15年累计市场变化率 × 年数/15）。观察年份之后按相同线性斜率外推，并限制售价不能为负。土地权重和建筑老化速度是不同情景下的<strong>假设参数</strong>，不是官方认证数据。买房净资产 = 预计售价 − 出售费用 − 剩余贷款 + 金融资产；租房净资产 = 金融资产。初始资金等于首付＋购房初期费用；买房者支付首付及费用，租房者扣除自身初期费用后投资。卖房所得税、贷款利率变化和重大特殊维修费尚未建模。本模型不需要输入共同月预算，按每月住房现金流差额投资；不判断家庭支付能力。</p></section>
 </div></div></main>
 <script>
 (()=>{'use strict';
 const $=s=>document.getElementById(s),ids=['price','age','down','rate','term','closing','market','saleFee','management','reserve','reserveRise','parking','tax','repair','rent','rentRise','renew','renewEvery','rentInitial','rentInsurance','invest','creditCap','creditYears','taxCapacity','manualCredit','manualYears'];
-const initial=Object.fromEntries(ids.map(k=>[k,$(k).value]));let focus=15,rows=[];
+const initial=Object.fromEntries(ids.map(k=>[k,$(k).value]));let focus=15,rows=[],auditMonths=[],auditYears=[];
 let rentInitialManual=false;
 function syncRentInitial(){if(!rentInitialManual && $('rent').value!==''){const rentValue=Number($('rent').value);if(Number.isFinite(rentValue))$('rentInitial').value=String(Math.round(rentValue*2*100)/100);}}
 const n=id=>Number($(id).value),fm=v=>Number.isFinite(v)?v.toLocaleString('zh-CN',{maximumFractionDigits:1}):'—',money=v=>fm(v)+'万';
@@ -91,7 +104,7 @@ const price=n('price'),rate=n('rate')/1200,loan=price-n('down'),term=Math.round(
 function debt(m){if(m>=term)return 0;if(!rate)return Math.max(0,loan-monthly*m);return Math.max(0,loan*Math.pow(1+rate,m)-monthly*(Math.pow(1+rate,m)-1)/rate);}
 const cfg=presets[$('scenario').value],land=cfg.land,k=cfg.k;
 function ageCurve(a){return .1+.9*Math.exp(-k*a)};
-function priceParts(t){const building=ageCurve(n('age')+t)/ageCurve(n('age'));const ageOnly=price*(land+(1-land)*building);const marketFactor=1+n('market')/100*t/focus;const sale=Math.max(0,ageOnly*marketFactor);return {ageOnly,ageEffect:ageOnly-price,marketEffect:sale-ageOnly,sale,marketFactor};}
+function priceParts(t){const building=ageCurve(n('age')+t)/ageCurve(n('age'));const ageOnly=price*(land+(1-land)*building);const marketFactor=Math.max(0,1+n('market')/100*t/15);const sale=Math.max(0,ageOnly*marketFactor);return {ageOnly,ageEffect:ageOnly-price,marketEffect:sale-ageOnly,sale,marketFactor};}
 function house(t){return priceParts(t).sale;}
 const capital=n('down')+n('closing');$('capitalDisplay').textContent=money(capital);
 // 双方拥有同一笔初始资金。买房用它支付首付及购房费用；租房用它支付租房初期费用。
@@ -100,15 +113,18 @@ const capital=n('down')+n('closing');$('capitalDisplay').textContent=money(capit
 const initialDifference=capital-n('rentInitial');
 let buy=Math.max(0,-initialDifference),rent=Math.max(0,initialDifference);
 const initialRentalGap=Math.max(0,-initialDifference);
-const out=[];let ownAnnual=0,rentAnnual=0,firstOwn=0,firstRental=0;
+auditYears=[];const out=[];let ownAnnual=0,rentAnnual=0,firstOwn=0,firstRental=0;
+const monthsDetail=[];let annualBuyAdd=0,annualRentAdd=0,annualBuyYield=0,annualRentYield=0,maxAuditError=0;
+let buyStart=buy,rentStart=rent;
 for(let m=1;m<=420;m++){
+  const oldBuy=buy,oldRent=rent,previousDebt=debt(m-1);
   const yr=Math.floor((m-1)/12);
   const own=(m<=term?monthly:0)+n('management')+
     n('reserve')*Math.pow(1+n('reserveRise')/100,Math.floor(yr/10))+
     n('parking')+(n('tax')+n('repair'))/12;
   const rentBase=n('rent')*Math.pow(1+n('rentRise')/100,yr);
   const rentCash=rentBase+n('rentInsurance')/12+
-    ((m>12&&((m-1)%(n('renewEvery')*12)===0))?rentBase*n('renew'):0);
+    ((m>12&&m%(n('renewEvery')*12)===0)?rentBase*n('renew'):0);
   let credit=0;
   if(m%12===0){
     const taxYear=m/12;
@@ -119,13 +135,20 @@ for(let m=1;m<=420;m++){
     }
   }
   // 统一用月末投入，先对已有投资计算回报；把住房净支出较低一方的差额用于投资。
-  buy*=1+monthlyReturn;
-  rent*=1+monthlyReturn;
+  const buyYield=buy*monthlyReturn,rentYield=rent*monthlyReturn;
+  buy+=buyYield;
+  rent+=rentYield;
   if(m===1){firstOwn=own-credit;firstRental=rentCash;}
   ownAnnual+=own-credit;rentAnnual+=rentCash;
   const difference=own-credit-rentCash;
-  if(difference>0)rent+=difference;
-  else buy+=-difference;
+  const rentContribution=Math.max(0,difference),buyContribution=Math.max(0,-difference);
+  rent+=rentContribution;buy+=buyContribution;
+  const loanPaid=m<=term?monthly:0,interest=m<=term?previousDebt*rate:0;
+  const principal=m<=term?Math.min(previousDebt,Math.max(0,loanPaid-interest)):0;
+  const actualDebt=debt(m);
+  maxAuditError=Math.max(maxAuditError,Math.abs(buy-(oldBuy+buyYield+buyContribution)),Math.abs(rent-(oldRent+rentYield+rentContribution)),Math.abs(previousDebt-principal-actualDebt));
+  monthsDetail.push({m,year:Math.ceil(m/12),loanPaid,interest,principal,own,credit,ownNet:own-credit,rentCash,buyContribution,rentContribution,buyYield,rentYield,buyBalance:buy,rentBalance:rent,loanBalance:actualDebt});
+  annualBuyAdd+=buyContribution;annualRentAdd+=rentContribution;annualBuyYield+=buyYield;annualRentYield+=rentYield;
   if(m%12===0){
     const year=m/12,parts=priceParts(year),sale=parts.sale,bal=debt(m);
     const netBuy=sale*(1-n('saleFee')/100)-bal+buy;
@@ -133,7 +156,10 @@ for(let m=1;m<=420;m++){
     out.push({year,sale,ageOnly:parts.ageOnly,bal,buy:netBuy,rent:netRent,
       breakEven:(netRent-buy+bal)/(1-n('saleFee')/100),
       buyInvest:buy,rentInvest:rent,initialRentalGap,ownMonthlyAverage:ownAnnual/12,rentMonthlyAverage:rentAnnual/12});
-    ownAnnual=0;rentAnnual=0;
+    const annualAudit={year,buyHousing:ownAnnual,rentHousing:rentAnnual,buyContribution:annualBuyAdd,rentContribution:annualRentAdd,buyYield:annualBuyYield,rentYield:annualRentYield,buyBalance:buy,rentBalance:rent,startingBuy:buyStart,startingRent:rentStart};
+    maxAuditError=Math.max(maxAuditError,Math.abs(buy-(buyStart+annualBuyAdd+annualBuyYield)),Math.abs(rent-(rentStart+annualRentAdd+annualRentYield)));
+    auditYears.push(annualAudit);buyStart=buy;rentStart=rent;
+    ownAnnual=0;rentAnnual=0;annualBuyAdd=0;annualRentAdd=0;annualBuyYield=0;annualRentYield=0;
   }
 }
 function putCash(prefix,b,r,who){const d=b-r;$(prefix+'Buy').textContent=money(b);$(prefix+'Rent').textContent=money(r);$(prefix+'Gap').textContent=money(Math.abs(d));$(who).textContent=Math.abs(d)<0.0000001?'双方该期住房现金支出相同，不产生投资差额。':d>0?'租房支出更低：差额由租房方案投入投资。':'买房支出更低：差额由买房方案投入投资。';}
@@ -143,9 +169,33 @@ $('liquidity').textContent='无须设置共同月预算：每个月住房现金�
   '此处的金融资产是双方投资金额的相对差额，不是家庭全部存款。'+
   (z.initialRentalGap>0?'注意：租房初期费用超出了设定的初始资金，差额约'+money(z.initialRentalGap)+'，本模型仅将其计为租房方案的额外初始资本需求。':'')+
   '由于没有收入与现金储备资料，本工具不判断任何方案的实际支付能力。';
-const pp=priceParts(focus);$('priceExplanation').innerHTML='房价拆分：购入 '+money(price)+'；房龄变化 '+(pp.ageEffect>=0?'+':'')+money(pp.ageEffect)+'；市场变化 '+(pp.marketEffect>=0?'+':'')+money(pp.marketEffect)+'；合计 '+money(pp.sale)+'。<div class="price-detail">你填写的是<b>第'+focus+'年累计市场变化 '+n('market')+'%</b>。每5年表按相同直线变化率计算；超过观察年份的部分是外推，不是独立预测。好地段房价和折旧参数仅供情景测试。</div>';
-$('fiveTable').innerHTML=[5,10,15,20,25,30,35].map(y=>{const a=out[y-1];return `<tr data-year="${y}" class="${focus===y?'current':''}"><td>${y}年</td><td>${n('age')+y}年</td><td>${fm(a.ageOnly)}</td><td>${fm(a.sale)}</td><td>${fm(a.buy)}</td><td>${fm(a.rent)}</td><td>${fm(a.breakEven)}</td></tr>`}).join('');document.querySelectorAll('tr[data-year]').forEach(el=>el.onclick=()=>{$('year').value=el.dataset.year;focus=Number(el.dataset.year);calc()});draw(out);drawAge(out);
+const pp=priceParts(focus);$('priceExplanation').innerHTML='房价拆分：购入 '+money(price)+'；房龄变化 '+(pp.ageEffect>=0?'+':'')+money(pp.ageEffect)+'；市场变化 '+(pp.marketEffect>=0?'+':'')+money(pp.marketEffect)+'；合计 '+money(pp.sale)+'。<div class="price-detail">你填写的是<b>固定15年累计市场变化 '+n('market')+'%</b>。观察年份只改变卖出时点，价格路径不变；超过15年的部分为线性外推，不是独立预测。好地段房价和折旧参数仅供情景测试。</div>';
+$('fiveTable').innerHTML=[5,10,15,20,25,30,35].map(y=>{const a=out[y-1];return `<tr data-year="${y}" class="${focus===y?'current':''}"><td>${y}年</td><td>${n('age')+y}年</td><td>${fm(a.ageOnly)}</td><td>${fm(a.sale)}</td><td>${fm(a.buy)}</td><td>${fm(a.rent)}</td><td>${fm(a.breakEven)}</td></tr>`}).join('');document.querySelectorAll('tr[data-year]').forEach(el=>el.onclick=()=>{$('year').value=el.dataset.year;focus=Number(el.dataset.year);calc()});auditMonths=monthsDetail;renderAudit(out,monthsDetail,maxAuditError);draw(out);drawAge(out);
 }
+
+function renderAudit(out,months,error){
+ const z=out[focus-1],sellingFee=z.sale*n('saleFee')/100,netSale=z.sale-sellingFee-z.bal;
+ const checks=[Math.abs(z.buy-(netSale+z.buyInvest)),Math.abs(z.rent-z.rentInvest),Math.abs(z.breakEven-((z.rent-z.buyInvest+z.bal)/(1-n('saleFee')/100)))];
+ const worst=Math.max(error,...checks);
+ const audit=$('auditCheck');audit.className='notice '+(worst<1e-7?'success':'warning');
+ audit.textContent=(worst<1e-7?'✓ 逐月账本与净资产平衡校验通过。':'⚠ 发现平衡误差，请暂勿参考计算结果。')+' 最大绝对误差：'+worst.toExponential(2)+' 万日元。市场价格以固定15年为锚，不随观察年份修改。';
+ const items=[['预计卖价',z.sale],['出售费用（扣除）',-sellingFee],['结清贷款（扣除）',-z.bal],['卖房净所得',netSale],['买房方案投资账户',z.buyInvest],['买房最终净资产',z.buy],['租房方案投资账户（净资产）',z.rent],['买房减租房净资产差',z.buy-z.rent],['买租保本售价',z.breakEven]];
+ $('auditSettlement').innerHTML=items.map(([label,value])=>`<tr><td>${label}</td><td style="text-align:right">${fm(value)}</td></tr>`).join('');
+ $('auditYearRows').innerHTML=auditYears.map(a=>`<tr><td>${a.year}</td><td>${fm(a.buyHousing)}</td><td>${fm(a.rentHousing)}</td><td>${fm(a.buyContribution)}</td><td>${fm(a.rentContribution)}</td><td>${fm(a.buyYield)}</td><td>${fm(a.rentYield)}</td><td>${fm(a.buyBalance)}</td><td>${fm(a.rentBalance)}</td></tr>`).join('');
+ const pick=$('auditYear'),oldYear=Number(pick.value);pick.innerHTML=Array.from({length:35},(_,i)=>`<option value="${i+1}">第${i+1}年</option>`).join('');pick.value=(oldYear>=1&&oldYear<=35?oldYear:focus);
+ renderAuditMonth();
+}
+function renderAuditMonth(){
+ const y=Number($('auditYear').value)||focus;
+ $('auditMonthRows').innerHTML=auditMonths.filter(a=>a.year===y).map(a=>`<tr><td>${a.m}</td><td>${fm(a.loanPaid)}</td><td>${fm(a.interest)}</td><td>${fm(a.principal)}</td><td>${fm(a.ownNet)}</td><td>${fm(a.rentCash)}</td><td>${fm(a.credit)}</td><td>${fm(a.buyContribution)}</td><td>${fm(a.rentContribution)}</td><td>${fm(a.buyYield)}</td><td>${fm(a.rentYield)}</td><td>${fm(a.buyBalance)}</td><td>${fm(a.rentBalance)}</td></tr>`).join('');
+}
+function downloadCsv(filename,header,records){
+ const lines=[header,...records].map(c=>c.map(v=>typeof v==='number'?v.toFixed(6):String(v)).join(',')).join('\r\n');
+ const url=URL.createObjectURL(new Blob(['\uFEFF'+lines],{type:'text/csv;charset=utf-8'}));const link=document.createElement('a');link.href=url;link.download=filename;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+$('auditYear').addEventListener('change',renderAuditMonth);
+$('auditExport').addEventListener('click',()=>downloadCsv('buy_vs_rent_v348_monthly_audit.csv',['month','year','mortgage_payment','mortgage_interest','mortgage_principal','owner_cost_before_credit','tax_credit','owner_net_housing_cost','renter_housing_cost','owner_invest_contribution','renter_invest_contribution','owner_invest_yield','renter_invest_yield','owner_invest_balance','renter_invest_balance','loan_balance'],auditMonths.map(a=>[a.m,a.year,a.loanPaid,a.interest,a.principal,a.own,a.credit,a.ownNet,a.rentCash,a.buyContribution,a.rentContribution,a.buyYield,a.rentYield,a.buyBalance,a.rentBalance,a.loanBalance])));
+
 function drawAge(data){
   const c=$('ageChart'),W=c.clientWidth||500,H=265,dpr=window.devicePixelRatio||1;
   c.width=Math.round(W*dpr);c.height=Math.round(H*dpr);
@@ -186,5 +236,5 @@ function draw(data){const c=$('chart'),W=c.clientWidth||500,H=245,dpr=window.dev
 ids.forEach(id=>$(id).addEventListener('input',()=>{if(id==='rentInitial')rentInitialManual=true;if(id==='rent')syncRentInitial();calc()}));function updateCreditSettings(){const mode=$('creditMode').value;
 $('manualCreditWrap').hidden=mode!=='manual';$('manualYearsWrap').hidden=mode!=='manual';
 $('creditModeHelp').textContent=mode==='manual'?'手动填写每年减税金额和可减税年数；按固定年度预估，实际金额应核对贷款余额、税额及资格。':mode==='estimate'?'自动预估：使用年末贷款限额2000万、最长10年及每年可减税上限14万的简化假设。不是个人实际可享优惠保证。':'目前不计算住宅贷款减税。';}
-$('creditMode').addEventListener('change',()=>{updateCreditSettings();calc()});$('scenario').addEventListener('change',()=>{$('market').value=presets[$('scenario').value].market;calc()});$('year').addEventListener('input',e=>{focus=Number(e.target.value);calc()});$('reset').addEventListener('click',()=>{ids.forEach(id=>$(id).value=initial[id]);rentInitialManual=false;syncRentInitial();$('scenario').value='high';$('creditMode').value='estimate';updateCreditSettings();$('year').value=15;focus=15;calc()});$('export').addEventListener('click',()=>{const csv=['year,age_only_reference_price,house_price,buy_liquidation_net_worth,rent_net_worth,loan_balance,break_even_sale_price,buy_relative_investments,rent_relative_investments',...rows.map(r=>[r.year,r.ageOnly,r.sale,r.buy,r.rent,r.bal,r.breakEven,r.buyInvest,r.rentInvest].map(v=>Number(v).toFixed(2)).join(','))].join('\r\n');const u=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=u;a.download='buy_vs_rent_simple_v347.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)});window.addEventListener('resize',()=>{if(rows.length){draw(rows);drawAge(rows)}});updateCreditSettings();calc();})();
+$('creditMode').addEventListener('change',()=>{updateCreditSettings();calc()});$('scenario').addEventListener('change',()=>{$('market').value=presets[$('scenario').value].market;calc()});$('year').addEventListener('input',e=>{focus=Number(e.target.value);calc()});$('reset').addEventListener('click',()=>{ids.forEach(id=>$(id).value=initial[id]);rentInitialManual=false;syncRentInitial();$('scenario').value='high';$('creditMode').value='estimate';updateCreditSettings();$('year').value=15;focus=15;calc()});$('export').addEventListener('click',()=>{const csv=['year,age_only_reference_price,house_price,buy_liquidation_net_worth,rent_net_worth,loan_balance,break_even_sale_price,buy_relative_investments,rent_relative_investments',...rows.map(r=>[r.year,r.ageOnly,r.sale,r.buy,r.rent,r.bal,r.breakEven,r.buyInvest,r.rentInvest].map(v=>Number(v).toFixed(2)).join(','))].join('\r\n');const u=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=u;a.download='buy_vs_rent_simple_v348.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)});window.addEventListener('resize',()=>{if(rows.length){draw(rows);drawAge(rows)}});updateCreditSettings();calc();})();
 </script></body></html>
